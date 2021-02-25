@@ -5,8 +5,139 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Algorithms"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Алгоритмы" MinHeight="300" MinWidth="360"
+        Height="600" Width="400">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#111"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--#region Заголовок-->
+        <Border Background="Black">
+            <Grid VerticalAlignment="Center">
+                <!--#region Текст-->
+                <TextBlock Name="txt" Text="Алгоритмы"
+                           HorizontalAlignment="Center" Margin="0,14,0,0"
+                           FontFamily="Courier New"
+                           FontSize="60" Foreground="White">
+                </TextBlock>
+                <!--#endregion-->
+
+                <!--#region Полоса по середине-->
+                <Rectangle Fill="White" Height="0.5" Margin="0,28,0,0"
+                           SnapsToDevicePixels="True" StrokeThickness="0">
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0"
+                                          Color="White"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Rectangle Height="0.5" Margin="0,28,0,0"
+                           SnapsToDevicePixels="True" StrokeThickness="0">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Offset="0" Color="Transparent"/>
+                            <GradientStop Offset="0" Color="Transparent"/>
+                            <GradientStop Offset="0" Color="White"/>
+                            <GradientStop Offset="1" Color="Transparent"/>
+                            <GradientStop Offset="1" Color="Transparent"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="15" ShadowDepth="0"
+                                          Color="White"/>
+                    </Rectangle.Effect>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever" Duration="0:0:15">
+                                    <DoubleAnimation Storyboard.TargetProperty=
+                                            "Fill.GradientStops[1].Offset"
+                                            From="0" To="1"/>
+                                    <DoubleAnimation Storyboard.TargetProperty=
+                                            "Fill.GradientStops[2].Offset"
+                                            From="0.1" To="1"/>
+                                    <DoubleAnimation Storyboard.TargetProperty=
+                                            "Fill.GradientStops[3].Offset"
+                                            From="0.2" To="1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+                <!--#endregion-->
+
+                <!--#region Отражение-->
+                <Rectangle RenderTransformOrigin="1,0.36"
+                           HorizontalAlignment="Center" Width="325"
+                           Height="40" Margin="0,83,0,0">
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{Binding ElementName=txt}"/>
+                    </Rectangle.Fill>
+                    <Rectangle.OpacityMask>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                            <GradientStop Offset="0.4" Color="#CC000000"></GradientStop>
+                            <GradientStop Offset="0.7" Color="#22000000"></GradientStop>
+                            <GradientStop Offset="1" Color="Transparent"></GradientStop>
+                        </LinearGradientBrush>
+                    </Rectangle.OpacityMask>
+                    <Rectangle.RenderTransform>
+                        <ScaleTransform ScaleY="-1"></ScaleTransform>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.BitmapEffect>
+                        <BlurBitmapEffect Radius="2" />
+                    </Rectangle.BitmapEffect>
+                </Rectangle>
+                <!--#endregion-->
+
+                <!--#region Свечение-->
+                <Grid.Effect>
+                    <DropShadowEffect x:Name="Glow" BlurRadius="10" 
+                                      ShadowDepth="0" Color="White"/>
+                </Grid.Effect>
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard TargetName="Glow" Duration="0:0:30"
+                                        TargetProperty="BlurRadius" 
+                                        RepeatBehavior="Forever">
+                                <DoubleAnimation To="25"
+                                         AutoReverse="True"
+                                         Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
+                <!--#endregion-->
+            </Grid>
+        </Border>
+        <!--#endregion-->
+
+        <Border Grid.Row="1" BorderThickness="0,11,0,0"
+                BorderBrush="#111"
+                Background="Black">
+            <Border BorderThickness="0.5" Background="Black" 
+                     BorderBrush="Transparent" SnapsToDevicePixels="True">
+                <ListBox Margin="5" Background="Transparent"
+                         BorderThickness="0">
+                    <ListBoxItem>Почему</ListBoxItem>
+                    <ListBoxItem>Понимаю</ListBoxItem>
+                    <ListBoxItem>Чего</ListBoxItem>
+                    <ListBoxItem>Нет блин да</ListBoxItem>
+                    <ListBoxItem>Ok</ListBoxItem>
+                </ListBox>
+            </Border>
+            
+        </Border>
     </Grid>
 </Window>

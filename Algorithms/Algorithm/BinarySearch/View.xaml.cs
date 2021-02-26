@@ -12,14 +12,17 @@ using System.Windows.Shapes;
 
 namespace Algorithms.Algorithm.BinarySearch
 {
-	/// <summary>
-	/// Логика взаимодействия для View.xaml
-	/// </summary>
 	public partial class View : Window
 	{
 		public View()
 		{
 			InitializeComponent();
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			var mainWindow = new MainWindow();
+			mainWindow.Show();
 		}
 	}
 }

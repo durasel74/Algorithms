@@ -22,5 +22,15 @@ namespace Algorithms
 			InitializeComponent();
 			DataContext = new ViewModel();
 		}
+
+		private void CloseWindowAfterOpening(object sender, RoutedEventArgs e)
+		{
+			CloseWindow();
+		}
+		private async void CloseWindow()
+		{
+			await Task.Delay(200);
+			Close();
+		}
 	}
 }

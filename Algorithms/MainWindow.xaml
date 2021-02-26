@@ -8,13 +8,178 @@
         Title="Алгоритмы" MinHeight="300" MinWidth="360"
         Height="600" Width="400">
     <Window.Resources>
-        <Style TargetType="ListBoxItem">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#111"/>
+        <!--#region Цвета-->
+        <LinearGradientBrush x:Key="ScrollThumbColor" StartPoint="0.5,1"
+                             EndPoint="0.5,0">
+            <GradientStop Offset="0" Color="Transparent"/>
+            <GradientStop Offset="0.25" Color="White"/>
+            <GradientStop Offset="0.75" Color="White"/>
+            <GradientStop Offset="1" Color="Transparent"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ScrollBackLineColor" StartPoint="0.5,1"
+                             EndPoint="0.5,0">
+            <GradientStop Offset="0" Color="Transparent"/>
+            <GradientStop Offset="0.1" Color="#444"/>
+            <GradientStop Offset="0.9" Color="#444"/>
+            <GradientStop Offset="1" Color="Transparent"/>
+        </LinearGradientBrush>
+        <!--#endregion-->
+        
+        <!--#region Шаблон кнопки-->
+        <ControlTemplate x:Key="Button" TargetType="Button">
+            <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                  Margin="{TemplateBinding Margin}">
+                <Border x:Name="BtnBorder" 
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
+                    <Border.Effect>
+                        <DropShadowEffect x:Name="BtnGlow" BlurRadius="15" 
+                                      ShadowDepth="0" Color="White"/>
+                    </Border.Effect>
+                </Border>
+                
+                <Border Background="Transparent">
+                    <ContentPresenter x:Name="BtnContent" Margin="{TemplateBinding Padding}"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  TextElement.FontSize="{TemplateBinding FontSize}"
+                                  TextElement.Foreground="{TemplateBinding Foreground}"/>
+                </Border>
+            </Grid>
+            
+
+            <!--#region Анимации-->
+            <ControlTemplate.Triggers>
+                <!--#region Наведение на кнопку-->
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderBrush.Color">
+                            <ColorAnimation To="White" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderThickness">
+                            <ThicknessAnimation To="2,0,0,0" 
+                                                Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderBrush.Color">
+                            <ColorAnimation To="Transparent" 
+                                            Duration="0:0:0.6"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderThickness">
+                            <ThicknessAnimation To="0,0,0,0" 
+                                                Duration="0:0:0.6"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <!--#endregion-->
+                
+                <!--#region Нажатие на кнопку-->
+                <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                    <BeginStoryboard>
+                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderThickness">
+                            <ThicknessAnimation To="10,2,0,2" 
+                                                Duration="0:0:0.5"/>
+                            <ThicknessAnimation To="2,0,0,0"
+                                                Duration="0:0:0.8"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <!--#endregion-->
+            </ControlTemplate.Triggers>
+            <!--#endregion-->
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Шаблон скроллбара-->
+        <Style x:Key="ScrollBarPageButtonStyle" TargetType="RepeatButton">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="Transparent" Width="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
+        <Style x:Key="ScrollBarThumbStyle" TargetType="Thumb">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle Fill="{StaticResource ScrollThumbColor}" 
+                                   Width="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="VerticalScrollBar" TargetType="ScrollBar">
+            <Grid Width="15">
+                <Rectangle SnapsToDevicePixels="True" Width="1" 
+                           Fill="{StaticResource ScrollBackLineColor}"/>
+                <Track Name="PART_Track" IsDirectionReversed="True">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageUpCommand" 
+                                      Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource ScrollBarThumbStyle}"/>
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageDownCommand" 
+                                      Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                    </Track.IncreaseRepeatButton>
+                    <Track.Effect>
+                        <DropShadowEffect BlurRadius="25" 
+                                      ShadowDepth="0" 
+                                      Color="White"/>
+                    </Track.Effect>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+        <!--#endregion-->
+        
+        <!--#region Стили-->
+        <Style TargetType="Button">
+            <Setter Property="Template" Value="{StaticResource Button}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="10,20,10,20"/>
+            <Setter Property="BorderThickness" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Content" Value="Пусто"/>
+            <Setter Property="Command" Value="{Binding OpenCommand}"/>
+            <Setter Property="ClickMode" Value="Release"/>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Template" 
+                    Value="{StaticResource VerticalScrollBar}"/>
+        </Style>
+        <!--#endregion-->
     </Window.Resources>
     
     <Grid>
@@ -60,7 +225,8 @@
                     <Rectangle.Triggers>
                         <EventTrigger RoutedEvent="Loaded">
                             <BeginStoryboard>
-                                <Storyboard RepeatBehavior="Forever" Duration="0:0:15">
+                                <Storyboard RepeatBehavior="Forever" 
+                                            Duration="0:0:15">
                                     <DoubleAnimation Storyboard.TargetProperty=
                                             "Fill.GradientStops[1].Offset"
                                             From="0" To="1"/>
@@ -123,21 +289,32 @@
         </Border>
         <!--#endregion-->
 
+        <!--#region Список-->
         <Border Grid.Row="1" BorderThickness="0,11,0,0"
                 BorderBrush="#111"
                 Background="Black">
-            <Border BorderThickness="0.5" Background="Black" 
+            <Border BorderThickness="0.5" Background="#050505" Margin="0,-2,0,0"
                      BorderBrush="Transparent" SnapsToDevicePixels="True">
-                <ListBox Margin="5" Background="Transparent"
-                         BorderThickness="0">
-                    <ListBoxItem>Почему</ListBoxItem>
-                    <ListBoxItem>Понимаю</ListBoxItem>
-                    <ListBoxItem>Чего</ListBoxItem>
-                    <ListBoxItem>Нет блин да</ListBoxItem>
-                    <ListBoxItem>Ok</ListBoxItem>
-                </ListBox>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto"
+                              Margin="3">
+                    <StackPanel Margin="5">
+                        <Button Content="Бинарный поиск"
+                                CommandParameter="BinarySearch"
+                                Click="CloseWindowAfterOpening"/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                        <Button/>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
-            
         </Border>
+        <!--#endregion-->
     </Grid>
 </Window>

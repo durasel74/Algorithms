@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Algorithms.Algorithm.BinarySearch"
         mc:Ignorable="d"
-        Title="View" Height="450" Width="800">
+        Title="View" Closing="Window_Closing"
+        Height="450" Width="800">
     <Grid>
         
     </Grid>

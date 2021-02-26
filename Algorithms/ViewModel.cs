@@ -6,11 +6,31 @@ namespace Algorithms
 {
 	public class ViewModel : INotifyPropertyChanged
 	{
+        private ButtonCommand openCommand;
+        public ButtonCommand OpenCommand
+        {
+            get
+            {
+                return openCommand ??
+                (openCommand = new ButtonCommand(obj =>
+                {
+                    string selectedAlgorithm = obj as string;
+                    if (selectedAlgorithm != null)
+                        OpenAlgorithm(selectedAlgorithm);
+                }));
+            }
+        }
 
-
-
-
-
+        private void OpenAlgorithm(string algorithm)
+        {
+            switch (algorithm)
+            {
+                case "BinarySearch":
+                    var algorithmWindow = new Algorithm.BinarySearch.View();
+                    algorithmWindow.Show();
+                    break;
+            }
+		}
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

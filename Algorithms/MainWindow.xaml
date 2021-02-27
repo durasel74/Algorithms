@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Algorithms"
         mc:Ignorable="d"
-        Title="Алгоритмы" MinHeight="300" MinWidth="360"
-        Height="600" Width="400">
+        Title="Алгоритмы" MinHeight="300" MinWidth="360" Height="600" 
+        Width="400" MouseDown="Window_MouseDown">
     <Window.Resources>
         <!--#region Цвета-->
         <LinearGradientBrush x:Key="ScrollThumbColor" StartPoint="0.5,1"
@@ -39,7 +39,7 @@
                                       ShadowDepth="0" Color="White"/>
                     </Border.Effect>
                 </Border>
-                
+
                 <Border Background="Transparent">
                     <ContentPresenter x:Name="BtnContent" Margin="{TemplateBinding Padding}"
                                   HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -47,7 +47,6 @@
                                   TextElement.Foreground="{TemplateBinding Foreground}"/>
                 </Border>
             </Grid>
-            
 
             <!--#region Анимации-->
             <ControlTemplate.Triggers>
@@ -102,6 +101,45 @@
             </ControlTemplate.Triggers>
             <!--#endregion-->
         </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Анимация навигации табом-->
+        <Style x:Key="ButtonFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="BtnBorder" 
+                                BorderThickness="0,0,0,0"
+                                Background="Transparent"
+                                BorderBrush="Transparent">
+                            <Border.Effect>
+                                <DropShadowEffect x:Name="BtnGlow" BlurRadius="15" 
+                                      ShadowDepth="0" Color="White"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderBrush.Color">
+                                            <ColorAnimation To="White" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetName="BtnBorder"
+                                    TargetProperty="BorderThickness">
+                                            <ThicknessAnimation To="2,0,0,0" 
+                                                Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <!--#endregion-->
 
         <!--#region Шаблон скроллбара-->
@@ -173,6 +211,8 @@
             <Setter Property="Content" Value="Пусто"/>
             <Setter Property="Command" Value="{Binding OpenCommand}"/>
             <Setter Property="ClickMode" Value="Release"/>
+            <Setter Property="FocusVisualStyle" 
+                    Value="{StaticResource ButtonFocusVisual}"/>
         </Style>
 
         <Style TargetType="ScrollBar">

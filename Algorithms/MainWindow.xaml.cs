@@ -32,5 +32,9 @@ namespace Algorithms
 			await Task.Delay(200);
 			Close();
 		}
+		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			Keyboard.ClearFocus();
+		}
 	}
 }

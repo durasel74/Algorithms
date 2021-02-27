@@ -24,5 +24,9 @@ namespace Algorithms.Algorithm.BinarySearch
 			var mainWindow = new MainWindow();
 			mainWindow.Show();
 		}
+		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			Keyboard.ClearFocus();
+		}
 	}
 }

@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Algorithms.Resources.Views.NumbersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Algorithms.Resources.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="430" d:DesignWidth="550">
+    <Border Style="{StaticResource View}">
+        <Grid Background="Transparent">
+            <Button Width="30" Height="30" HorizontalAlignment="Left"
+                    VerticalAlignment="Top" Content="Ok"
+                    Click="Button_Click"/>
+            
+            <Button Width="30" Height="30" HorizontalAlignment="Left"
+                    VerticalAlignment="Top" Content="Not"
+                    Click="Button_Click2" Margin="35,0,0,0"/>
+
+            <Viewbox Margin="5">
+                <WrapPanel x:Name="wrapPanel" MaxWidth="200"
+                           SizeChanged="wrapPanel_SizeChanged"
+                           Background="Transparent">
+                </WrapPanel>
+            </Viewbox>
+        </Grid>
+    </Border>
+</UserControl>

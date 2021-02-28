@@ -20,7 +20,7 @@ namespace Algorithms
 		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = new ViewModel();
+			DataContext = new TitleViewModel();
 		}
 
 		private void CloseWindowAfterOpening(object sender, RoutedEventArgs e)

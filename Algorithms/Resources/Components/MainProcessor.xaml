@@ -6,7 +6,86 @@
              xmlns:local="clr-namespace:Algorithms.Resources.Components"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="300">
-    <Border Style="{StaticResource ComponentBorder}">
-        
+    <UserControl.Resources>
+        <Style x:Key="PlayButton" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="35"/>
+            <Setter Property="Height" Value="35"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="BtnBg" CornerRadius="50" 
+                                BorderThickness="1" Background="#080"
+                                BorderBrush="Transparent">
+                            <Polygon
+                                Points="11, 6, 11, 28, 27, 17"
+                                     Fill="White"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBg" 
+                                        Property="BorderBrush"
+                                        Value="BLack"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BtnBg" 
+                                        Property="Background" 
+                                        Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RestartButton" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="BtnBg" Background="Blue" 
+                                CornerRadius="50">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="BtnBg" 
+                                        Property="Background" 
+                                        Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    
+    <Border Style="{StaticResource ComponentBorder}" Height="50">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Style="{StaticResource PlayButton}"/>
+            <Button Grid.Column="1" Style="{StaticResource RestartButton}"/>
+            <TextBox Grid.Column="2" Margin="10" FontSize="20"
+                     Text="{Binding Text}"/>
+            <Button Grid.Column="3" Margin="10" Content="Ok"
+                    Command="{Binding AplyCommand}"/>
+        </Grid>
     </Border>
 </UserControl>

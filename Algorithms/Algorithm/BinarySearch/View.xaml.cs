@@ -17,6 +17,7 @@ namespace Algorithms.Algorithm.BinarySearch
 		public View()
 		{
 			InitializeComponent();
+			DataContext = new BSViewModel();
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

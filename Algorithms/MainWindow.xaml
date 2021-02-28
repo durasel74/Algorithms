@@ -170,7 +170,7 @@
             </Setter>
         </Style>
 
-        <ControlTemplate x:Key="VerticalScrollBar" TargetType="ScrollBar">
+        <ControlTemplate x:Key="TitleScrollBar" TargetType="ScrollBar">
             <Grid Width="15">
                 <Rectangle SnapsToDevicePixels="True" Width="1" 
                            Fill="{StaticResource ScrollBackLineColor}"/>
@@ -217,7 +217,7 @@
 
         <Style TargetType="ScrollBar">
             <Setter Property="Template" 
-                    Value="{StaticResource VerticalScrollBar}"/>
+                    Value="{StaticResource TitleScrollBar}"/>
         </Style>
         <!--#endregion-->
     </Window.Resources>

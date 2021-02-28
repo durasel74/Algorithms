@@ -9,6 +9,61 @@
     </Style>
     <!--#endregion-->
     
+    <!--#region Скроллбар-->
+    <Style x:Key="ScrollBarPageButtonStyle" TargetType="RepeatButton">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ScrollBarThumbStyle" TargetType="Thumb">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Rectangle Fill="{DynamicResource CompColor}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="VerticalScrollBar" TargetType="ScrollBar">
+        <Grid>
+            <Rectangle SnapsToDevicePixels="True"
+                       Fill="{DynamicResource AccentColor}"/>
+            <Track Name="PART_Track" IsDirectionReversed="True"
+                   Margin="2,0,0,2">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageUpCommand" 
+                                  Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource ScrollBarThumbStyle}"/>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Command="ScrollBar.PageDownCommand" 
+                                  Style="{StaticResource ScrollBarPageButtonStyle}"/>
+                </Track.IncreaseRepeatButton>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="Template" Value="{StaticResource VerticalScrollBar}"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="10"/>
+    </Style>
+    <!--#endregion-->
+    
     <!--#region Компонент-->
     
     <!--#region Анимация навигации табом-->
@@ -39,6 +94,7 @@
     
     <!--#region Граница компонента-->
     <Style TargetType="Border" x:Key="ComponentBorder">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
         <Setter Property="Background" 
                     Value="{DynamicResource MainColor}"/>
@@ -140,7 +196,7 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" 
-                                        Value="#222"/>
+                                        Value="#111"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -149,6 +205,14 @@
     </Style>
     <!--#endregion-->
     
+    <!--#endregion-->
+
+    <!--region View-->
+    <Style x:Key="View" TargetType="Border">
+        <Setter Property="Margin" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource AccentColor}"/>
+    </Style>
     <!--#endregion-->
     
 </ResourceDictionary>

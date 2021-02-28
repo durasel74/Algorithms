@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Algorithms
 {
-	public class ViewModel : INotifyPropertyChanged
+	public class TitleViewModel : INotifyPropertyChanged
 	{
         private ButtonCommand openCommand;
         public ButtonCommand OpenCommand

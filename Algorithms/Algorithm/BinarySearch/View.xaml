@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Algorithms.Algorithm.BinarySearch"
         xmlns:Components="clr-namespace:Algorithms.Resources.Components"
+        xmlns:Views="clr-namespace:Algorithms.Resources.Views"
         mc:Ignorable="d"
         Title="Бинарный поиск" MinWidth="600" MinHeight="400" Height="450" 
         Width="800" Closing="Window_Closing" MouseDown="Window_MouseDown"
@@ -23,26 +24,43 @@
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch"
                           HorizontalAlignment="Center"/>
-
+            
+            <!--#region Algorithm View-->
             <Border Grid.Column="0" BorderThickness="0"
                     Background="{StaticResource MainColor}">
-                
+                <Views:NumbersView/>
             </Border>
+            <!--#endregion-->
+            
+            <!--#region Inspector-->
             <Border Grid.Column="2" BorderThickness="0"
                     Background="{StaticResource MainColor}">
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <Components:MainProcessor Height="50"/>
-                        <Components:TestComponent/>
-                        <Components:TestComponent/>
-                        <Components:TestComponent/>
-                        <Components:TestComponent/>
-                    </StackPanel>
-                </ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Components:MainProcessor Grid.Row="0"/>
+
+                    <ScrollViewer Grid.Row="1"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Border>
+            <!--#endregion-->
         </Grid>
 
+        <!--#region Status Bar-->
         <Grid Grid.Row="1" Background="{StaticResource CompColor}"/>
+        <!--#endregion-->
     </Grid>
 </Window>

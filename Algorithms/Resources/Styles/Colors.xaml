@@ -7,6 +7,15 @@
 
     <SolidColorBrush x:Key="PrimaryTextColor" Color="#DDD"/>
     <SolidColorBrush x:Key="SecondaryTextColor" Color="#FFF"/>
-    
+
+    <SolidColorBrush x:Key="ViewColor" Color="Black"/>
+
+    <SolidColorBrush x:Key="PlayButtonColor" Color="#080"/>
+    <SolidColorBrush x:Key="PBMouseOverColor" Color="Black"/>
+    <SolidColorBrush x:Key="PBPressedColor" Color="Black"/>
+
+    <SolidColorBrush x:Key="NumberListItemBGColor" Color="Gray"/>
+    <SolidColorBrush x:Key="NumberListItemBorderColor" Color="White"/>
+    <SolidColorBrush x:Key="NumberListItemSelectColor" Color="Black"/>
 </ResourceDictionary>
     

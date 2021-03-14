@@ -7,33 +7,36 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="300">
     <UserControl.Resources>
+
         <Style x:Key="PlayButton" TargetType="{x:Type Button}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Width" Value="35"/>
             <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="{DynamicResource PlayButtonColor}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="BtnBg" CornerRadius="50" 
-                                BorderThickness="1" Background="#080"
-                                BorderBrush="Transparent">
-                            <Polygon
-                                Points="11, 6, 11, 28, 27, 17"
-                                     Fill="White"/>
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <Polygon Style="{StaticResource PlaySimbol}"/>
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="BtnBg" 
                                         Property="BorderBrush"
-                                        Value="BLack"/>
+                                        Value="{DynamicResource PBMouseOverColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="BtnBg" 
                                         Property="Background" 
-                                        Value="Black"/>
+                                        Value="{DynamicResource PBPressedColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

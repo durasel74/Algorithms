@@ -22,18 +22,16 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
+
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch"
                           HorizontalAlignment="Center"/>
-            
-            <!--#region Algorithm View-->
-            <Border Grid.Column="0" BorderThickness="0"
+
+            <Border x:Name="AlgView" Grid.Column="0" 
                     Background="{StaticResource MainColor}">
                 <Views:NumbersView/>
             </Border>
-            <!--#endregion-->
-            
-            <!--#region Inspector-->
-            <Border Grid.Column="2" BorderThickness="0"
+
+            <Border x:Name="Inspector" Grid.Column="2" BorderThickness="0"
                     Background="{StaticResource MainColor}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -56,11 +54,9 @@
                     </ScrollViewer>
                 </Grid>
             </Border>
-            <!--#endregion-->
         </Grid>
 
-        <!--#region Status Bar-->
-        <Grid Grid.Row="1" Background="{StaticResource CompColor}"/>
-        <!--#endregion-->
+        <Grid x:Name="StatusBar" Grid.Row="1" 
+              Background="{StaticResource CompColor}"/>
     </Grid>
 </Window>

@@ -4,9 +4,10 @@ using System.Runtime.CompilerServices;
 
 namespace Algorithms.Algorithm
 {
-	public class ViewModel : INotifyPropertyChanged
+	public class AlgorithmsProcessor : INotifyPropertyChanged
 	{
         
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

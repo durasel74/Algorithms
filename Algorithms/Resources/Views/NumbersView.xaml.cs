@@ -15,37 +15,33 @@ namespace Algorithms.Resources.Views
 {
 	public partial class NumbersView : UserControl
 	{
-		private const double resizeMult = 100;
-		private int ID = 1;
+		private WrapPanel wrapPanel;
 		
 		public NumbersView()
 		{
 			InitializeComponent();
 		}
 
-		private void wrapPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+		private void WrapPanel_Loaded(object sender, RoutedEventArgs e)
 		{
-			wrapPanel.MaxWidth = 200 + 60 * (wrapPanel.Children.Count / 10);
-
+			WrapPanel panel = sender as WrapPanel;
+			wrapPanel = panel;
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void NumbersView_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			var newBtn = new Button();
-			newBtn.Content = ID;
-			newBtn.Width = 50;
-			newBtn.Height = 50;
-			newBtn.Margin = new Thickness(2);
-			wrapPanel.Children.Add(newBtn);
-			ID++;
+			WrapPanelResize();
 		}
-		private void Button_Click2(object sender, RoutedEventArgs e)
+
+		private void WrapPanel_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			if (wrapPanel.Children.Count > 0)
-			{
-				wrapPanel.Children.RemoveAt(wrapPanel.Children.Count-1);
-				ID--;
-			}
+			WrapPanelResize();
+		}
+
+		private void WrapPanelResize()
+		{
+			if (wrapPanel != null)
+				wrapPanel.MaxWidth = this.ActualWidth + (Container.Items.Count * 2);
 		}
 	}
 }

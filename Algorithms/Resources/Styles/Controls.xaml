@@ -6,6 +6,12 @@
         <Setter Property="Width" Value="3"/>
         <Setter Property="Background" 
                     Value="{DynamicResource AccentColor}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=Inspector, 
+                             Path=ActualWidth}" Value="0">
+                <Setter Property="Background" Value="White"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
     <!--#endregion-->
     
@@ -209,11 +215,41 @@
 
     <!--region View-->
     <Style x:Key="View" TargetType="Border">
-        <Setter Property="Margin" Value="1"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Background" Value="{DynamicResource AccentColor}"/>
+        <Setter Property="Background" Value="{DynamicResource ViewColor}"/>
     </Style>
     <!--#endregion-->
-    
+
+    <!--#region Список чисел-->
+    <Style TargetType="ListBox" x:Key="NumberList">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Элементы списка чисел-->
+    <ControlTemplate TargetType="ListBoxItem" x:Key="NumberItem">
+        <Border BorderThickness="0" Background="Transparent">
+            <Grid>
+                <Rectangle x:Name="bg" Width="{TemplateBinding Width}"
+                           Height="{TemplateBinding Height}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           StrokeThickness="{TemplateBinding BorderThickness}"
+                           Fill="{TemplateBinding Background}"
+                           Stroke="{TemplateBinding BorderBrush}"/>
+                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource NumberListItemSelectColor}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <!--#endregion-->
+
 </ResourceDictionary>
     

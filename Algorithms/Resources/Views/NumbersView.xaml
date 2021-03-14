@@ -5,22 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Algorithms.Resources.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="430" d:DesignWidth="550">
+             d:DesignHeight="430" d:DesignWidth="550"
+             SizeChanged="NumbersView_SizeChanged">
     <Border Style="{StaticResource View}">
-        <Grid Background="Transparent">
-            <Button Width="30" Height="30" HorizontalAlignment="Left"
-                    VerticalAlignment="Top" Content="Ok"
-                    Click="Button_Click"/>
-            
-            <Button Width="30" Height="30" HorizontalAlignment="Left"
-                    VerticalAlignment="Top" Content="Not"
-                    Click="Button_Click2" Margin="35,0,0,0"/>
-
+        <Grid>
             <Viewbox Margin="5">
-                <WrapPanel x:Name="wrapPanel" MaxWidth="200"
-                           SizeChanged="wrapPanel_SizeChanged"
-                           Background="Transparent">
-                </WrapPanel>
+                <ListBox x:Name="Container" Style="{StaticResource NumberList}"
+                         DataContext="{Binding Test}"
+                         ItemsSource="{Binding Array}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Loaded="WrapPanel_Loaded"
+                                       SizeChanged="WrapPanel_SizeChanged"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" x:Name="NumberItem">
+                            <Setter Property="Template" 
+                                    Value="{StaticResource NumberItem}"/>
+                            <Setter Property="Width" Value="50"/>
+                            <Setter Property="Height" Value="50"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                            <Setter Property="Background" 
+                                    Value="{DynamicResource NumberListItemBGColor}"/>
+                            <Setter Property="BorderBrush" 
+                                    Value="{DynamicResource NumberListItemBorderColor}"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
             </Viewbox>
         </Grid>
     </Border>

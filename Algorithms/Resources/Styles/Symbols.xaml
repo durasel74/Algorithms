@@ -1,6 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    
-    
+    <!--#region Символ воспроизведения-->
+    <Style TargetType="Polygon" x:Key="PlaySimbol">
+        <Setter Property="Points" Value="11, 6, 11, 28, 27, 17"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="Stroke" Value="Transparent"/>
+    </Style>
+    <!--#endregion-->
+
 </ResourceDictionary>

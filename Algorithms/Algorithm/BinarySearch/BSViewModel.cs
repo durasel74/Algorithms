@@ -5,41 +5,20 @@ namespace Algorithms.Algorithm.BinarySearch
 {
 	public class BSViewModel : ViewModel
 	{
-        private BinarySearch test = new BinarySearch();
+        private BinarySearch algorithm = new BinarySearch();
 
-        public BinarySearch Test
+        public BSViewModel()
         {
-            get { return test; }
+            Play += algorithm.Start;
+            algorithm.Count = 100;
+		}
+
+        public BinarySearch Algorithm
+        {
+            get { return algorithm; }
             set { }
 		}
 
-        private string text;
-        public string Text
-        {
-            get { return text; }
-            set
-            {
-                text = value;
-                OnPropertyChanged("Text");
-            }
-        }
-
-        private ButtonCommand aplyCommand;
-        public ButtonCommand AplyCommand
-        {
-            get
-            {
-                return aplyCommand ??
-                      (aplyCommand = new ButtonCommand(obj =>
-                      {
-                          int count = 0;
-                          if (Int32.TryParse(text, out count))
-                          {
-                              test.Count = count;
-						  }
-                      }));
-            }
-        }
 
         private int[] elements;
 		public void CreateElements(string count)

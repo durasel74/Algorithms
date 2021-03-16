@@ -26,22 +26,29 @@ namespace Algorithms.Resources.Views
 		{
 			WrapPanel panel = sender as WrapPanel;
 			wrapPanel = panel;
+			WrapPanelResize();
 		}
-
 		private void NumbersView_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			WrapPanelResize();
 		}
-
 		private void WrapPanel_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			WrapPanelResize();
 		}
-
 		private void WrapPanelResize()
 		{
 			if (wrapPanel != null)
 				wrapPanel.MaxWidth = this.ActualWidth + (Container.Items.Count * 2);
+		}
+
+		private void Container_RightMouse(object sender, MouseButtonEventArgs e)
+		{
+			e.Handled = true;
+		}
+		private void Container_LeftMouse(object sender, MouseButtonEventArgs e)
+		{
+			e.Handled = true;
 		}
 	}
 }

@@ -13,6 +13,9 @@
     <SolidColorBrush x:Key="PlayButtonColor" Color="#080"/>
     <SolidColorBrush x:Key="PBMouseOverColor" Color="Black"/>
     <SolidColorBrush x:Key="PBPressedColor" Color="Black"/>
+    <SolidColorBrush x:Key="PBSymbolColor" Color="White"/>
+
+    <SolidColorBrush x:Key="RBSymbolColor" Color="White"/>
 
     <SolidColorBrush x:Key="NumberListItemBGColor" Color="Gray"/>
     <SolidColorBrush x:Key="NumberListItemBorderColor" Color="White"/>

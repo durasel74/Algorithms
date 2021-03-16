@@ -14,10 +14,13 @@ namespace Algorithms.Algorithm.BinarySearch
 {
 	public partial class View : Window
 	{
+		BSViewModel viewModel;
 		public View()
 		{
 			InitializeComponent();
 			DataContext = new BSViewModel();
+			viewModel = (BSViewModel)DataContext;
+			numbersView.Container.SelectionChanged += NumbersView_SelectionChanged;
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -28,6 +31,41 @@ namespace Algorithms.Algorithm.BinarySearch
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			Keyboard.ClearFocus();
+		}
+
+		private void NumbersView_SelectionChanged(object sender, 
+			SelectionChangedEventArgs e)
+		{
+			if (viewModel.Algorithm.IsStart)
+			{
+				var algorithm = viewModel.Algorithm;
+				for (int i = 0; i < algorithm.Low - 1; i++)
+				{
+					var item = (ListBoxItem)numbersView.Container.ItemContainerGenerator.ContainerFromIndex(i);
+
+					item.IsEnabled = false;
+				}
+				for (int i = algorithm.High + 2; i < algorithm.Array.Count; i++)
+				{
+					var item = (ListBoxItem)numbersView.Container.ItemContainerGenerator.ContainerFromIndex(i);
+
+					item.IsEnabled = false;
+				}
+			}
+			if (viewModel.Algorithm.Result != -1)
+			{
+				var algorithm = viewModel.Algorithm;
+				for (int i = 0; i < algorithm.Array.Count; i++)
+				{
+					var item = (ListBoxItem)numbersView.Container.ItemContainerGenerator.ContainerFromIndex(i);
+
+					if (i != algorithm.Result)
+						item.IsEnabled = false;
+					else
+						item.Background = Brushes.Green;
+				}
+				viewModel.Algorithm.Result = -1;
+			}
 		}
 	}
 }

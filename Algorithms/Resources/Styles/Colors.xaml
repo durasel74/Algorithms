@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
+    <!--#region Основные цвета-->
     <SolidColorBrush x:Key="MainColor" Color="#333"/>
     <SolidColorBrush x:Key="CompColor" Color="#888"/>
     <SolidColorBrush x:Key="AccentColor" Color="#111"/>
@@ -8,13 +9,27 @@
     <SolidColorBrush x:Key="PrimaryTextColor" Color="#DDD"/>
     <SolidColorBrush x:Key="SecondaryTextColor" Color="#FFF"/>
 
-    <SolidColorBrush x:Key="ViewColor" Color="Black"/>
+    <SolidColorBrush x:Key="EffectColor" Color="DarkOrange"/>
+    <!--#endregion-->
 
+    <!--#region Цвета главных кнопок -->
+    
+    <!--#region Цвета кнопки запуска -->
     <SolidColorBrush x:Key="PlayButtonColor" Color="#080"/>
-    <SolidColorBrush x:Key="PBMouseOverColor" Color="Black"/>
-    <SolidColorBrush x:Key="PBPressedColor" Color="Black"/>
-    <SolidColorBrush x:Key="PBSymbolColor" Color="White"/>
-
+    <SolidColorBrush x:Key="PBMouseOverColor" Color="#08A"/>
+    <SolidColorBrush x:Key="PBPressedColor" Color="#00A"/>
+    <!--#endregion-->
+    
+    <!--#region Цвета кнопки перезапуска -->
+    <SolidColorBrush x:Key="RestartButtonColor" Color="#888"/>
+    <SolidColorBrush x:Key="RBMouseOverColor" Color="#AAA"/>
+    <SolidColorBrush x:Key="RBPressedColor" Color="DarkOrange"/>
+    <!--#endregion-->
+    <!--#endregion-->
+    
+    
+    <SolidColorBrush x:Key="ViewColor" Color="Black"/>
+    
     <SolidColorBrush x:Key="RBSymbolColor" Color="White"/>
 
     <SolidColorBrush x:Key="NumberListItemBGColor" Color="Gray"/>

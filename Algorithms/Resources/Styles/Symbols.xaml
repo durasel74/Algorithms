@@ -1,13 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!--#region Символ воспроизведения-->
-    <Style TargetType="Polygon" x:Key="PlaySymbol">
-        <Setter Property="Points" Value="10, 5, 10, 27, 26, 16"/>
-    </Style>
-    <!--#endregion-->
+    <!--#region Символы главного компонента-->
+    <PathGeometry x:Key="PlaySymbol" Figures="M5,0 L5,22 21,11 5,0z"/>
 
-    <!--#region Символ перезагрузки-->
+    <PathGeometry x:Key="PauseSymbol" Figures="M0,0 L0,22 5,22 5,0 
+                                               M10,0 L10,22 15,22 15,0z"/>
+
     <PathGeometry x:Key="RestartSymbol" Figures="M12.083,1.887c-0.795-0.794
                   -1.73-1.359-2.727-1.697v2.135c0.48,0.239,0.935,0.55,1.334,
                   0.95 c1.993,1.994,1.993,5.236,0,7.229c-1.993,1.99-5.233,
@@ -17,5 +16,7 @@
                   2.762-2.763,7.243,0,10.005c2.767,2.765,7.245,2.765,10.011,
                   0C14.844,9.13,14.847,4.649,12.083,1.887z"/>
     <!--#endregion-->
+    
+    
 </ResourceDictionary>
     

@@ -21,7 +21,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch"
@@ -57,7 +57,7 @@
             </Border>
         </Grid>
 
-        <Grid x:Name="StatusBar" Grid.Row="1" 
+        <Grid x:Name="StatusBar" Grid.Row="1" DataContext="{Binding Algorithm}"
               Background="{StaticResource CompColor}"/>
     </Grid>
 </Window>

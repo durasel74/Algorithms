@@ -23,9 +23,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ToggleButton Grid.Column="0" 
+            <ToggleButton Grid.Column="0"
                           Style="{StaticResource PlayButton}"
-                          IsChecked="{Binding Algorithm.IsRunning}"
+                          IsChecked="{Binding Algorithm.IsPause}"
                           Command="{Binding StartCommand}"/>
             
             <Button Grid.Column="1" Style="{StaticResource RestartButton}"

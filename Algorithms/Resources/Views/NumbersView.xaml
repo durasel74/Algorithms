@@ -13,7 +13,7 @@
                 <ListBox x:Name="Container" Style="{StaticResource NumberList}"
                          DataContext="{Binding Algorithm}"
                          ItemsSource="{Binding Array}"
-                         SelectedItem="{Binding SelectedNumber}"
+                         SelectedItem="{Binding SelectedElement}"
                          PreviewMouseRightButtonDown="Container_RightMouse"
                          PreviewMouseLeftButtonDown="Container_LeftMouse">
                     <ListBox.ItemsPanel>

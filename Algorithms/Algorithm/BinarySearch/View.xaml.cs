@@ -37,28 +37,31 @@ namespace Algorithms.Algorithm.BinarySearch
 		private void NumbersView_SelectionChanged(object sender, 
 			SelectionChangedEventArgs e)
 		{
-			if (viewModel.Algorithm.IsRunning)
+			BinarySearch alg = (BinarySearch)viewModel.Algorithm;
+			if (alg.IsRunning)
 			{
-				var algorithm = viewModel.Algorithm;
-				for (int i = 0; i < algorithm.Low - 1; i++)
+				for (int i = 0; i < alg.Low - 1; i++)
 				{
 					var item = (ListBoxItem)numbersView.Container.
 						ItemContainerGenerator.ContainerFromIndex(i);
-					item.IsEnabled = false;
+					if (item != null)
+						item.IsEnabled = false;
 				}
-				for (int i = algorithm.High + 2; i < algorithm.Array.Count; i++)
+				for (int i = alg.High + 2; i < alg.Array.Count; i++)
 				{
 					var item = (ListBoxItem)numbersView.Container.
 						ItemContainerGenerator.ContainerFromIndex(i);
-					item.IsEnabled = false;
+					if(item != null)
+						item.IsEnabled = false;
 				}
 			}
-			if (viewModel.Algorithm.Result != -1)
+			if (alg.ResultIndex != -1)
 			{
 				var algorithm = viewModel.Algorithm;
 				var item = (ListBoxItem)numbersView.Container.
-					ItemContainerGenerator.ContainerFromIndex(algorithm.Result);
-				item.Background = Brushes.Green;
+					ItemContainerGenerator.ContainerFromIndex(alg.ResultIndex);
+				if (item != null)
+					item.Background = Brushes.Green;
 			}
 		}
 	}

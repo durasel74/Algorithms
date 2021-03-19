@@ -241,13 +241,13 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="False">
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" 
                                     Value="{DynamicResource PlayButtonColor}"/>
                             <Setter TargetName="BtnSymbol" Property="Data" 
                                     Value="{DynamicResource PlaySymbol}"/>
                         </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
+                        <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Background"
                                     Value="{DynamicResource PBPressedColor}"/>
                             <Setter TargetName="BtnSymbol" Property="Data" 

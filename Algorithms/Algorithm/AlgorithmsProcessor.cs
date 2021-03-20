@@ -72,13 +72,14 @@ namespace Algorithms.Algorithm
             get { return speed; }
             set
             {
-                if (value > 0 && value < 100)
-                {
-                    speed = Math.Round(value, 1);
-                    if (speed == 0)
-                        speed = 1;
-                    OnPropertyChanged("Speed");
-                }
+                double temp = Math.Round(value, 1);
+                if (temp <= 0)
+                    speed = 1;
+                else if (temp > 100)
+                    speed = 100;
+                else
+                    speed = temp;
+                OnPropertyChanged("Speed");
             }
         }
 
@@ -97,7 +98,7 @@ namespace Algorithms.Algorithm
             isComplite = true;
             IsPause = true;
             isRunning = false;
-            Speed = 1;
+            Speed = 15;
             RestartEventHandler += RestartAlgorithm;
         }
 
@@ -142,7 +143,7 @@ namespace Algorithms.Algorithm
             bool again;
             while (!isComplite)
             {
-                Thread.Sleep((int)(1000 / speed));
+                Thread.Sleep((int)(5000 / speed));
                 if (isPause)
                 {
                     if (isComplite) break;

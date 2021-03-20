@@ -26,11 +26,9 @@
     <SolidColorBrush x:Key="RBPressedColor" Color="DarkOrange"/>
     <!--#endregion-->
     <!--#endregion-->
-    
-    
+
+
     <SolidColorBrush x:Key="ViewColor" Color="Black"/>
-    
-    <SolidColorBrush x:Key="RBSymbolColor" Color="White"/>
 
     <SolidColorBrush x:Key="NumberListItemBGColor" Color="Gray"/>
     <SolidColorBrush x:Key="NumberListItemBorderColor" Color="White"/>

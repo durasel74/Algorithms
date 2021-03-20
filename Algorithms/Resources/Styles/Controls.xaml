@@ -212,7 +212,7 @@
     
     <!--#endregion-->
 
-    <!--#region Кнопки главной панели-->
+    <!--#region Элементы главной панели-->
     
     <!--#region Кнопка запуска-->
     <Style x:Key="PlayButton" TargetType="ToggleButton">
@@ -307,7 +307,90 @@
         </Setter>
     </Style>
     <!--#endregion-->
-    
+
+    <!--#region Слайдер скорости -->
+    <Style x:Key="SliderLeftField" TargetType="RepeatButton">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="IsTabStop" Value="false" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Height="4" CornerRadius="3,0,0,3"
+                            Background="{DynamicResource AccentColor}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderRightField" TargetType="RepeatButton">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="IsTabStop" Value="false" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Height="4" CornerRadius="0,3,3,0" 
+                            Background="{DynamicResource AccentColor}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderThumb" TargetType="Thumb">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid>
+                        <Border Width="25" Height="25" CornerRadius="100"
+                                BorderThickness="2" BorderBrush="Black"
+                                Background="{DynamicResource CompColor}">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Padding="0,-1,0,0" FontWeight="Bold" 
+                                       FontSize="11" Foreground="{DynamicResource SecondaryTextColor}"
+                                       Text="{Binding Algorithm.Speed}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate TargetType="Slider" x:Key="Slider">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Track Grid.Row="1" x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderLeftField}"
+                                  Command="Slider.DecreaseLarge"/>
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource SliderThumb}"/>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderRightField}"
+                                  Command="Slider.IncreaseLarge"/>
+                </Track.IncreaseRepeatButton>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="SpeedSlider" TargetType="Slider">
+        <Setter Property="Template" Value="{StaticResource Slider}"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        <Setter Property="TickFrequency" Value="1"/>
+        <Setter Property="SmallChange" Value="1"/>
+        <Setter Property="LargeChange" Value="10"/>
+    </Style>
+    <!--#endregion-->
     <!--#endregion-->
     
     <!--region View-->

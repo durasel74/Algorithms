@@ -6,11 +6,6 @@
              xmlns:local="clr-namespace:Algorithms.Resources.Components"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="300">
-
-    <UserControl.Resources>
-        
-    </UserControl.Resources>
-    
     
     <Border Style="{StaticResource ComponentBorder}" Height="50">
         <Grid>
@@ -19,50 +14,30 @@
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <ToggleButton Grid.Column="0"
                           Style="{StaticResource PlayButton}"
                           IsChecked="{Binding Algorithm.IsPause}"
                           Command="{Binding StartCommand}"/>
-            
+
             <Button Grid.Column="1" Style="{StaticResource RestartButton}"
                     Command="{Binding RestartCommand}"/>
 
-            <Border Grid.Column="2" Width="2" Background="#222"/>
+            <Border Grid.Column="2" Width="2" 
+                    Background="{DynamicResource AccentColor}"/>
 
+            <TextBlock Grid.Column="3" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Margin="10,0,0,0" 
+                       FontSize="17" Text="Скорость:"
+                       Foreground="{DynamicResource PrimaryTextColor}"/>
 
-            <TextBlock Grid.Column="3" Margin="10,0,0,0" 
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Text="Скорость: "
-                       Foreground="White"
-                       FontSize="17"
-                       Height="25"/>
-
-            <TextBox Grid.Column="4" DataContext="{Binding Algorithm}"
-                     Margin="5" Background="Black"
-                     HorizontalAlignment="Left"
-                     BorderThickness="0"
-                     Foreground="White"
-                     MaxLines="1"
-                     FontSize="20"
-                     Height="30"
-                     Width="50"
-                     MinWidth="10"
-                     HorizontalContentAlignment="Center"
-                     Text="{Binding Speed}"
-                     />
-
-            <TextBlock Grid.Column="5" Margin="2,0,0,0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Text="X "
-                       Foreground="White"
-                       FontSize="20"
-                       Height="25"/>
+            <Slider Grid.Column="4" Style="{StaticResource SpeedSlider}"
+                    VerticalAlignment="Center" Margin="10,3,10,0" 
+                    Minimum="1" Maximum="100" 
+                    Value="{Binding Algorithm.Speed, 
+                        UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>
 </UserControl>

@@ -10,7 +10,7 @@
     
     <Border Style="{StaticResource View}">
         <Grid>
-            <Viewbox Margin="5">
+            <Viewbox Margin="20">
                 <ListBox x:Name="Container" Style="{StaticResource NumberList}"
                          ItemContainerStyle="{StaticResource NumberItem}"
                          DataContext="{Binding Algorithm}"
@@ -27,6 +27,15 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
             </Viewbox>
+
+            <Border HorizontalAlignment="Left" VerticalAlignment="Top"
+                    BorderThickness="0" Background="#5000">
+                <TextBlock Style="{StaticResource ViewInfo}" 
+                           Margin="5" FontSize="11" 
+                           IsEnabled="{Binding Algorithm.ShowInfo}"
+                           Text="{Binding Algorithm.AlgorithmInfo}"/>
+            </Border>
+            
         </Grid>
     </Border>
 </UserControl>

@@ -19,6 +19,10 @@ namespace Algorithms.Algorithm
         private bool isPause;
         private bool isRunning;
         private double speed;
+        private int attempt;
+        private bool showInfo;
+        private string algorithmName;
+        private string algorithmInfo;
 
         public ObservableCollection<int> Array { get { return array; } }
         public int CountFrom
@@ -82,9 +86,57 @@ namespace Algorithms.Algorithm
                 OnPropertyChanged("Speed");
             }
         }
+        public int Attempt 
+        { 
+            get { return attempt; } 
+            set
+            {
+                attempt = value;
+                OnPropertyChanged("Attempt");
+			}
+        }
+        public bool ShowInfo
+        {
+            get { return showInfo; }
+            set
+            {
+                showInfo = value;
+                OnPropertyChanged("ShowInfo");
+			}
+		}
+        public string AlgorithmName
+        {
+            get { return algorithmName; }
+            set
+            {
+                algorithmName = value;
+                OnPropertyChanged("AlgorithmName");
+			}
+		}
+        public string AlgorithmInfo
+        {
+            get { return algorithmInfo; }
+            set
+            {
+                algorithmInfo = value;
+                OnPropertyChanged("AlgorithmInfo");
+            }
+        }
 
         public delegate bool AlgorithmHundler();
-        public event AlgorithmHundler AlgorithmEventHandler;
+        public event AlgorithmHundler _algorithmEventHandler;
+        public event AlgorithmHundler AlgorithmEventHandler
+        {
+            add
+            {
+                _algorithmEventHandler += value;
+                UpdateInfo();
+            }
+            remove
+            {
+                _algorithmEventHandler -= value;
+            }
+        }
 
         public delegate void AlgorithmRestart();
         public event AlgorithmRestart RestartEventHandler;
@@ -99,7 +151,9 @@ namespace Algorithms.Algorithm
             IsPause = true;
             isRunning = false;
             Speed = 15;
+            ShowInfo = true;
             RestartEventHandler += RestartAlgorithm;
+            UpdateInfo();
         }
 
         /// <summary>
@@ -118,6 +172,7 @@ namespace Algorithms.Algorithm
                 IsPause = true;
                 isComplite = true;
                 isRunning = false;
+                UpdateInfo();
             }
         }
 
@@ -143,6 +198,7 @@ namespace Algorithms.Algorithm
             bool again;
             while (!isComplite)
             {
+                UpdateInfo();
                 Thread.Sleep((int)(5000 / speed));
                 if (isPause)
                 {
@@ -151,7 +207,7 @@ namespace Algorithms.Algorithm
                     continue;
                 }
 
-                again = AlgorithmEventHandler.Invoke();
+                again = _algorithmEventHandler.Invoke();
                 if (!again) return;
             }
         }
@@ -164,9 +220,32 @@ namespace Algorithms.Algorithm
         }
         private void RestartAlgorithm()
         {
+            Attempt = 0;
             UpdateArray();
             SelectedElement = countFrom - 1;
+            UpdateInfo();
         }
+        private void UpdateInfo()
+        {
+			string info = "" +
+            $"Алгоритм: {AlgorithmName}\n" +
+            $"Состояние: {GetState()}\n" + 
+            $"Количество элементов: {Array.Count}\n" +
+            $"Попытка: {Attempt}"
+            ;
+            AlgorithmInfo = info;
+		}
+        private string GetState()
+        {
+            if (!IsRunning)
+                return "Готово";
+            else if (!IsPause)
+                return "Запущено";
+            else if (IsPause)
+                return "Пауза";
+            else
+                return "Ошибка";
+		}
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

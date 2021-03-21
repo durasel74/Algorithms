@@ -46,6 +46,7 @@
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel>
+                            <Components:ViewComponent/>
                             <Components:TestComponent/>
                             <Components:TestComponent/>
                             <Components:TestComponent/>

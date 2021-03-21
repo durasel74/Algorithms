@@ -29,7 +29,7 @@
 
     <!--#region Цвета области просмотра и ее элементов -->
 
-    <SolidColorBrush x:Key="ViewColor" Color="Black"/>
+    <SolidColorBrush x:Key="ViewColor" Color="#111"/>
 
     <!--#region Цвета элементов списка чисел -->
     

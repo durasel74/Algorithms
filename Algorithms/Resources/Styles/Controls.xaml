@@ -262,6 +262,18 @@
     </Style>
     <!--#endregion-->
 
+    <!--#region Блок с информацией-->
+    <Style TargetType="TextBlock" x:Key="ViewInfo">
+        <Setter Property="Foreground" 
+                    Value="{DynamicResource PrimaryTextColor}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
     <!--#region Список чисел-->
     <Style TargetType="ListBox" x:Key="NumberList">
         <Setter Property="IsTabStop" Value="False"/>
@@ -465,7 +477,6 @@
     </Style>
     <!--#endregion-->
     <!--#endregion-->
-
 
 </ResourceDictionary>
     

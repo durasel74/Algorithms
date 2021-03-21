@@ -24,16 +24,19 @@ namespace Algorithms.Algorithm.BinarySearch
 
 		public BinarySearch()
 		{
+			AlgorithmName = "Бинарный поиск";
+			AlgorithmEventHandler += BinSearch;
+			RestartEventHandler += RestartSearch;
+
 			Low = 0;
 			High = Array.Count - 1;
 			ResultIndex = -1;
 			RequiredElement = 48;
-			AlgorithmEventHandler += BinSearch;
-			RestartEventHandler += RestartSearch;
 		}
 
 		private bool BinSearch()
 		{
+			Attempt += 1;
 			int mid = (Low + High) / 2;
 			SelectedElement = Array[mid];
 

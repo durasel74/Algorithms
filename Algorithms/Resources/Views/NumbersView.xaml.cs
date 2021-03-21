@@ -21,6 +21,14 @@ namespace Algorithms.Resources.Views
 		{
 			InitializeComponent();
 		}
+		private void Container_RightMouse(object sender, MouseButtonEventArgs e)
+		{
+			e.Handled = true;
+		}
+		private void Container_LeftMouse(object sender, MouseButtonEventArgs e)
+		{
+			e.Handled = true;
+		}
 
 		private void WrapPanel_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -40,15 +48,6 @@ namespace Algorithms.Resources.Views
 		{
 			if (wrapPanel != null)
 				wrapPanel.MaxWidth = this.ActualWidth + (Container.Items.Count * 2);
-		}
-
-		private void Container_RightMouse(object sender, MouseButtonEventArgs e)
-		{
-			e.Handled = true;
-		}
-		private void Container_LeftMouse(object sender, MouseButtonEventArgs e)
-		{
-			e.Handled = true;
 		}
 	}
 }

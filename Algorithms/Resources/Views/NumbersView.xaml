@@ -7,36 +7,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="430" d:DesignWidth="550"
              SizeChanged="NumbersView_SizeChanged">
+    
     <Border Style="{StaticResource View}">
         <Grid>
             <Viewbox Margin="5">
                 <ListBox x:Name="Container" Style="{StaticResource NumberList}"
+                         ItemContainerStyle="{StaticResource NumberItem}"
                          DataContext="{Binding Algorithm}"
                          ItemsSource="{Binding Array}"
                          SelectedItem="{Binding SelectedElement}"
                          PreviewMouseRightButtonDown="Container_RightMouse"
                          PreviewMouseLeftButtonDown="Container_LeftMouse">
+
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Loaded="WrapPanel_Loaded"
                                        SizeChanged="WrapPanel_SizeChanged"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem" x:Name="NumberItem">
-                            <Setter Property="Template" 
-                                    Value="{StaticResource NumberItem}"/>
-                            <Setter Property="IsTabStop" Value="False"/>
-                            <Setter Property="Width" Value="50"/>
-                            <Setter Property="Height" Value="50"/>
-                            <Setter Property="Margin" Value="5"/>
-                            <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Background" 
-                                    Value="{DynamicResource NumberListItemBGColor}"/>
-                            <Setter Property="BorderBrush" 
-                                    Value="{DynamicResource NumberListItemBorderColor}"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
                 </ListBox>
             </Viewbox>
         </Grid>

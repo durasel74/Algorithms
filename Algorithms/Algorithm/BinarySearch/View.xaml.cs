@@ -57,11 +57,20 @@ namespace Algorithms.Algorithm.BinarySearch
 			}
 			if (alg.ResultIndex != -1)
 			{
-				var algorithm = viewModel.Algorithm;
-				var item = (ListBoxItem)numbersView.Container.
-					ItemContainerGenerator.ContainerFromIndex(alg.ResultIndex);
-				if (item != null)
-					item.Background = Brushes.Green;
+				for (int i = 0; i < alg.Array.Count; i++)
+				{
+					var item = (ListBoxItem)numbersView.Container.
+						ItemContainerGenerator.ContainerFromIndex(i);
+					if (i == alg.ResultIndex)
+					{
+						item.Background = (Brush)TryFindResource("NLI_Result_BGColor");
+						item.BorderBrush = (Brush)TryFindResource("NLI_Result_BorderColor");
+						item.Foreground = (Brush)TryFindResource("NLI_Result_FGColor");
+						continue;
+					}
+					if (i != alg.ResultIndex && item != null)
+						item.IsEnabled = false;
+				}
 			}
 		}
 	}

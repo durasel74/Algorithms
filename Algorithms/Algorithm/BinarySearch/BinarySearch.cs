@@ -7,17 +7,17 @@ namespace Algorithms.Algorithm.BinarySearch
 	/// </summary>
 	public class BinarySearch : AlgorithmsProcessor
 	{
-		private int findElement;
+		private int requiredElement;
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
 		public int ResultIndex { get; private set; }
-		public int FindElement
+		public int RequiredElement
 		{ 
-			get { return findElement; }
+			get { return requiredElement; }
 			set
 			{
-				findElement = value;
+				requiredElement = value;
 				OnPropertyChanged("FindElement");
 			}
 		}
@@ -27,7 +27,7 @@ namespace Algorithms.Algorithm.BinarySearch
 			Low = 0;
 			High = Array.Count - 1;
 			ResultIndex = -1;
-			FindElement = 48;
+			RequiredElement = 48;
 			AlgorithmEventHandler += BinSearch;
 			RestartEventHandler += RestartSearch;
 		}
@@ -37,16 +37,16 @@ namespace Algorithms.Algorithm.BinarySearch
 			int mid = (Low + High) / 2;
 			SelectedElement = Array[mid];
 
-			if (findElement == SelectedElement)
+			if (requiredElement == SelectedElement)
 			{
 				Low = mid + 1;
 				High = mid - 1;
 				ResultIndex = mid;
 				return false;
 			}
-			else if (findElement > SelectedElement)
+			else if (requiredElement > SelectedElement)
 				Low = mid + 1;
-			else if (findElement < SelectedElement)
+			else if (requiredElement < SelectedElement)
 				High = mid - 1;
 
 			if (Low > High)

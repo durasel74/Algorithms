@@ -12,13 +12,10 @@
         <Grid>
             <Viewbox Margin="20">
                 <ListBox x:Name="Container" Style="{StaticResource NumberList}"
-                         ItemContainerStyle="{StaticResource NumberItem}"
-                         DataContext="{Binding Algorithm}"
-                         ItemsSource="{Binding Array}"
-                         SelectedItem="{Binding SelectedElement}"
+                         ItemsSource="{Binding Algorithm.Array}"
+                         SelectedItem="{Binding Algorithm.SelectedElement}"
                          PreviewMouseRightButtonDown="Container_RightMouse"
                          PreviewMouseLeftButtonDown="Container_LeftMouse">
-
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Loaded="WrapPanel_Loaded"

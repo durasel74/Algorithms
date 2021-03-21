@@ -279,50 +279,22 @@
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="Transparent"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ViewElementStyle}" Value="1">
+                <Setter Property="ItemContainerStyle" 
+                        Value="{DynamicResource ResourceKey=NumberItemSquareStyle}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ViewElementStyle}" Value="2">
+                <Setter Property="ItemContainerStyle" 
+                        Value="{DynamicResource ResourceKey=NumberItemEllipseStyle}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
     <!--#endregion-->
 
     <!--#region Элементы списка чисел-->
-
-    <!--#region Квадратный элемент-->
-    <ControlTemplate TargetType="ListBoxItem" x:Key="NumberItemSquare">
-        <Grid>
-            <Rectangle x:Name="bg" Width="{TemplateBinding Width}"
-                       Height="{TemplateBinding Height}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       StrokeThickness="{TemplateBinding BorderThickness}"
-                       Fill="{TemplateBinding Background}"
-                       Stroke="{TemplateBinding BorderBrush}"/>
-            <ContentPresenter Margin="{TemplateBinding Padding}"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              TextElement.FontSize="{TemplateBinding FontSize}"
-                              TextElement.Foreground="{TemplateBinding Foreground}"/>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" 
-                        Value="{DynamicResource NLI_Select_BGColor}"/>
-                <Setter Property="BorderBrush" 
-                        Value="{DynamicResource NLI_Select_BorderColor}"/>
-                <Setter Property="Foreground" 
-                        Value="{DynamicResource NLI_Select_FGColor}"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" 
-                        Value="{DynamicResource NLI_Disabled_BGColor}"/>
-                <Setter Property="BorderBrush" 
-                        Value="{DynamicResource NLI_Disabled_BorderColor}"/>
-                <Setter Property="Foreground" 
-                        Value="{DynamicResource NLI_Disabled_FGColor}"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-    <!--#endregion-->
-
     <Style TargetType="ListBoxItem" x:Key="NumberItem">
-        <Setter Property="Template" Value="{DynamicResource NumberItemSquare}"/>
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Width" Value="50"/>
         <Setter Property="Height" Value="50"/>

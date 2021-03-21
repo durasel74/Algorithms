@@ -27,31 +27,8 @@
     <!--#endregion-->
     <!--#endregion-->
 
-    <!--#region Цвета области просмотра и ее элементов -->
-
+    <!--#region Цвета области просмотра -->
     <SolidColorBrush x:Key="ViewColor" Color="#111"/>
-
-    <!--#region Цвета элементов списка чисел -->
-    
-    <!--Number List Item => NLI -->
-    <SolidColorBrush x:Key="NLI_BGColor" Color="Gray"/>
-    <SolidColorBrush x:Key="NLI_BorderColor" Color="White"/>
-    <SolidColorBrush x:Key="NLI_FGColor" Color="White"/>
-
-    <SolidColorBrush x:Key="NLI_Select_BGColor" Color="Black"/>
-    <SolidColorBrush x:Key="NLI_Select_BorderColor" Color="DarkOrange"/>
-    <SolidColorBrush x:Key="NLI_Select_FGColor" Color="DarkOrange"/>
-
-    <SolidColorBrush x:Key="NLI_Disabled_BGColor" Color="Black"/>
-    <SolidColorBrush x:Key="NLI_Disabled_BorderColor" Color="#999"/>
-    <SolidColorBrush x:Key="NLI_Disabled_FGColor" Color="#999"/>
-
-    <SolidColorBrush x:Key="NLI_Result_BGColor" Color="Black"/>
-    <SolidColorBrush x:Key="NLI_Result_BorderColor" Color="LightGreen"/>
-    <SolidColorBrush x:Key="NLI_Result_FGColor" Color="LightGreen"/>
-    <!--#endregion-->
-
-
     <!--#endregion-->
     
 </ResourceDictionary>

@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="Resources\Styles\Colors.xaml"/>
                 <ResourceDictionary Source="Resources\Styles\Controls.xaml"/>
                 <ResourceDictionary Source="Resources\Styles\Symbols.xaml"/>
+                <ResourceDictionary Source="Resources\Styles\ViewElementsSettings.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -42,7 +42,7 @@
 
                     <Components:MainProcessor Grid.Row="0"/>
 
-                    <ScrollViewer Grid.Row="1"
+                    <ScrollViewer Grid.Row="1" 
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel>

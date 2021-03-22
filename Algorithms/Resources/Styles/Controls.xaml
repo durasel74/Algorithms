@@ -360,6 +360,7 @@
                                 <ColumnDefinition Width="20"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+
                             <Polygon x:Name="arrow" Height="19" Width="19"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center" 
@@ -370,7 +371,7 @@
                                               HorizontalAlignment="Left" 
                                               RecognizesAccessKey="True" 
                                               SnapsToDevicePixels="True" 
-                                              Margin="4,0,0,0"/>
+                                              Margin="4,3,0,3"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

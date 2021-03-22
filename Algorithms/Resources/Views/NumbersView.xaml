@@ -26,7 +26,7 @@
             </Viewbox>
 
             <Border HorizontalAlignment="Left" VerticalAlignment="Top"
-                    BorderThickness="0" Background="#5000">
+                    BorderThickness="0" Background="#6000">
                 <TextBlock Style="{StaticResource ViewInfo}" 
                            Margin="5" FontSize="11" 
                            IsEnabled="{Binding Algorithm.ShowInfo}"

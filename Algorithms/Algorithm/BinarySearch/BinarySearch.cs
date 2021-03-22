@@ -17,7 +17,13 @@ namespace Algorithms.Algorithm.BinarySearch
 			get { return requiredElement; }
 			set
 			{
-				requiredElement = value;
+				if (value < CountFromLimit)
+					requiredElement = CountFromLimit;
+				else if (value > CountToLimit)
+					requiredElement = CountToLimit;
+				else
+					requiredElement = value;
+
 				OnPropertyChanged("FindElement");
 			}
 		}

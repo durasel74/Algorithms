@@ -14,7 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="22"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="2">
@@ -47,11 +47,26 @@
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <Components:ViewComponent/>
+                            <Components:ListComponent/>
+                            <Components:SearchComponent/>
+                            
                             <Components:TestComponent/>
                             <Components:TestComponent/>
                             <Components:TestComponent/>
                             <Components:TestComponent/>
                             <Components:TestComponent/>
+
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Algorithm.IsComplite}"
+                                                     Value="False">
+                                            <Setter Property="IsEnabled"
+                                                    Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -59,6 +74,13 @@
         </Grid>
 
         <Grid x:Name="StatusBar" Grid.Row="1" DataContext="{Binding Algorithm}"
-              Background="{StaticResource CompColor}"/>
+              Background="{StaticResource CompColor}">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Margin="10,0,0,0"
+                       Text="Состояние   0000"/>
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Margin="0,0,10,0"
+                       Text="999 | Элементы"/>
+        </Grid>
     </Grid>
 </Window>

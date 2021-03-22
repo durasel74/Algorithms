@@ -11,7 +11,7 @@ namespace Algorithms.Algorithm
     /// Главный механизм запуска алгоритмов. Управляет временем выполнения.
     /// </summary>
 	public class AlgorithmsProcessor : INotifyPropertyChanged
-	{
+    {
         private ObservableCollection<int> array;
         private int countFrom, countTo;
         private int selectedElement;
@@ -24,15 +24,24 @@ namespace Algorithms.Algorithm
         private string algorithmName;
         private string algorithmInfo;
 
+        public int CountFromLimit { get; } = -1000;
+        public int CountToLimit { get; } = 1000;
         public ObservableCollection<int> Array { get { return array; } }
         public int CountFrom
         {
             get { return countFrom; }
             set
             {
-                countFrom = value;
-                OnPropertyChanged("CountFrom");
-                UpdateArray();
+                if (value < CountFromLimit)
+                    countFrom = CountFromLimit;
+                else if (value > CountTo)
+                    countFrom = CountTo;
+                else
+                    countFrom = value;
+
+                if (RestartEventHandler != null)
+                    RestartEvent();
+				OnPropertyChanged("CountFrom");
 			}
 		}
         public int CountTo
@@ -40,9 +49,16 @@ namespace Algorithms.Algorithm
             get { return countTo; }
             set
             {
-                countTo = value;
-                OnPropertyChanged("countTo");
-                UpdateArray();
+                if (value > CountToLimit)
+                    countTo = CountToLimit;
+                else if (value < CountFrom)
+                    countTo = CountFrom;
+                else
+                    countTo = value;
+
+                if (RestartEventHandler != null)
+                    RestartEvent();
+                OnPropertyChanged("CountTo");
             }
         }
         public int SelectedElement
@@ -57,6 +73,11 @@ namespace Algorithms.Algorithm
 		public bool IsComplite
 		{
 			get { return isComplite; }
+            set
+            {
+                isComplite = value;
+                OnPropertyChanged("IsComplite");
+			}
 		}
 		public bool IsRunning
         {
@@ -76,13 +97,7 @@ namespace Algorithms.Algorithm
             get { return speed; }
             set
             {
-                double temp = Math.Round(value, 1);
-                if (temp <= 0)
-                    speed = 1;
-                else if (temp > 100)
-                    speed = 100;
-                else
-                    speed = temp;
+                speed = value;
                 OnPropertyChanged("Speed");
             }
         }
@@ -147,13 +162,14 @@ namespace Algorithms.Algorithm
             CountFrom = 1;
             CountTo = 100;
             SelectedElement = CountFrom - 1;
-            isComplite = true;
+            IsComplite = true;
             IsPause = true;
             isRunning = false;
             Speed = 15;
             ShowInfo = true;
             RestartEventHandler += RestartAlgorithm;
             UpdateInfo();
+            RestartEvent();
         }
 
         /// <summary>
@@ -166,11 +182,11 @@ namespace Algorithms.Algorithm
                 RestartEvent();
 
                 isRunning = true;
-                isComplite = false;
+                IsComplite = false;
                 IsPause = false;
                 await Task.Run(() => StartAlgorithm());
                 IsPause = true;
-                isComplite = true;
+                IsComplite = true;
                 isRunning = false;
                 UpdateInfo();
             }
@@ -222,7 +238,7 @@ namespace Algorithms.Algorithm
         {
             Attempt = 0;
             UpdateArray();
-            SelectedElement = countFrom - 1;
+            SelectedElement = CountFromLimit - 1;
             UpdateInfo();
         }
         private void UpdateInfo()

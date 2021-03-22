@@ -12,6 +12,9 @@ namespace Algorithms.Algorithm
     /// </summary>
 	public class AlgorithmsProcessor : INotifyPropertyChanged
     {
+        private const int timeDelay = 5000;
+        private const int pauseSize = 100;
+
         private ObservableCollection<int> array;
         private int countFrom, countTo;
         private int selectedElement;
@@ -21,7 +24,6 @@ namespace Algorithms.Algorithm
         private double speed;
         private int attempt;
         private bool showInfo;
-        private string algorithmName;
         private string algorithmInfo;
 
         public int CountFromLimit { get; } = -1000;
@@ -119,15 +121,6 @@ namespace Algorithms.Algorithm
                 OnPropertyChanged("ShowInfo");
 			}
 		}
-        public string AlgorithmName
-        {
-            get { return algorithmName; }
-            set
-            {
-                algorithmName = value;
-                OnPropertyChanged("AlgorithmName");
-			}
-		}
         public string AlgorithmInfo
         {
             get { return algorithmInfo; }
@@ -159,8 +152,8 @@ namespace Algorithms.Algorithm
         public AlgorithmsProcessor()
         {
             array = new ObservableCollection<int>();
-            CountFrom = 1;
             CountTo = 100;
+            CountFrom = 1;
             SelectedElement = CountFrom - 1;
             IsComplite = true;
             IsPause = true;
@@ -209,49 +202,23 @@ namespace Algorithms.Algorithm
             RestartEventHandler.Invoke();
         }
 
-        private void StartAlgorithm()
+        /// <summary>
+        /// Обновление информации о работе алгоритма.
+        /// </summary>
+        public virtual void UpdateInfo()
         {
-            bool again;
-            while (!isComplite)
-            {
-                UpdateInfo();
-                Thread.Sleep((int)(5000 / speed));
-                if (isPause)
-                {
-                    if (isComplite) break;
-                    Thread.Sleep(100);
-                    continue;
-                }
-
-                again = _algorithmEventHandler.Invoke();
-                if (!again) return;
-            }
-        }
-        private void UpdateArray()
-        {
-            array.Clear();
-            for (int i = countFrom; i < countTo + 1; i++)
-                array.Add(i);
-            OnPropertyChanged("Array");
-        }
-        private void RestartAlgorithm()
-        {
-            Attempt = 0;
-            UpdateArray();
-            SelectedElement = CountFromLimit - 1;
-            UpdateInfo();
-        }
-        private void UpdateInfo()
-        {
-			string info = "" +
-            $"Алгоритм: {AlgorithmName}\n" +
-            $"Состояние: {GetState()}\n" + 
+            string info = "" +
+            $"Состояние: {GetState()}\n" +
             $"Количество элементов: {Array.Count}\n" +
-            $"Попытка: {Attempt}"
-            ;
+            $"Попытка: {Attempt}";
             AlgorithmInfo = info;
-		}
-        private string GetState()
+        }
+
+        /// <summary>
+        /// Получение текущего состояния работы алгоритма.
+        /// </summary>
+        /// <returns>Строковое состояние</returns>
+        public string GetState()
         {
             if (!IsRunning)
                 return "Готово";
@@ -261,7 +228,53 @@ namespace Algorithms.Algorithm
                 return "Пауза";
             else
                 return "Ошибка";
-		}
+        }
+
+        /// <summary>
+        /// Рестарт основной части алгоритма.
+        /// </summary>
+        public void RestartAlgorithm()
+        {
+            Attempt = 0;
+            UpdateArray();
+            SelectedElement = CountFromLimit - 1;
+            UpdateInfo();
+        }
+
+        /// <summary>
+        /// Управляет скоростью выполнения алгоритма и паузами.
+        /// </summary>
+        /// <returns>Был ли выход непринужденным</returns>
+        public bool TimeManagement()
+        {
+            UpdateInfo();
+            for (int i = 0; i < timeDelay / pauseSize; i++)
+            {
+                while (isPause)
+                {
+                    if (isComplite) return false;
+                    Thread.Sleep(pauseSize);
+                }
+
+                if (isComplite) return false;
+                Thread.Sleep((int)(pauseSize / speed));
+			}
+            return true;
+        }
+
+        private void StartAlgorithm()
+        {
+            //bool result = _algorithmEventHandler.Invoke();
+
+            _algorithmEventHandler.Invoke();
+        }
+        private void UpdateArray()
+        {
+            array.Clear();
+            for (int i = countFrom; i < countTo + 1; i++)
+                array.Add(i);
+            OnPropertyChanged("Array");
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

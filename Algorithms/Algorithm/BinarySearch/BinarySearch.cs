@@ -30,7 +30,6 @@ namespace Algorithms.Algorithm.BinarySearch
 
 		public BinarySearch()
 		{
-			AlgorithmName = "Бинарный поиск";
 			AlgorithmEventHandler += BinSearch;
 			RestartEventHandler += RestartSearch;
 
@@ -40,26 +39,46 @@ namespace Algorithms.Algorithm.BinarySearch
 			RequiredElement = 48;
 		}
 
+		/// <summary>
+		/// Представляет свою версию обновления информации для алгоритма 
+		///	(Бинарный поиск).
+		/// </summary>
+		public override void UpdateInfo()
+		{
+			string info = "" +
+			$"Алгоритм: Бинарный поиск\n" +
+			$"Состояние: {GetState()}\n" +
+			$"Количество элементов: {Array.Count}\n" +
+			$"Попытка: {Attempt}";
+			AlgorithmInfo = info;
+		}
+
 		private bool BinSearch()
 		{
-			Attempt += 1;
-			int mid = (Low + High) / 2;
-			SelectedElement = Array[mid];
-
-			if (requiredElement == SelectedElement)
+			while (!IsComplite)
 			{
-				Low = mid + 1;
-				High = mid - 1;
-				ResultIndex = mid;
-				return false;
-			}
-			else if (requiredElement > SelectedElement)
-				Low = mid + 1;
-			else if (requiredElement < SelectedElement)
-				High = mid - 1;
+				if(!TimeManagement()) break;
+				Attempt += 1;
 
-			if (Low > High)
-				return false;
+				int mid = (Low + High) / 2;
+				if (Array.Count < 1) return false;
+				SelectedElement = Array[mid];
+
+				if (requiredElement == SelectedElement)
+				{
+					Low = mid + 1;
+					High = mid - 1;
+					ResultIndex = mid;
+					return false;
+				}
+				else if (requiredElement > SelectedElement)
+					Low = mid + 1;
+				else if (requiredElement < SelectedElement)
+					High = mid - 1;
+
+				if (Low > High)
+					return false;
+			}
 			return true;
 		}
 		private void RestartSearch()

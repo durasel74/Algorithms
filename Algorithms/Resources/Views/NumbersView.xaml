@@ -18,7 +18,8 @@
                          PreviewMouseLeftButtonDown="Container_LeftMouse">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Loaded="WrapPanel_Loaded"
+                            <WrapPanel MaxWidth="100"
+                                       Loaded="WrapPanel_Loaded"
                                        SizeChanged="WrapPanel_SizeChanged"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>

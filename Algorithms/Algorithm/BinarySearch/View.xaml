@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Title="Бинарный поиск" MinWidth="600" MinHeight="400" Height="450" 
         Width="800" Closing="Window_Closing" MouseDown="Window_MouseDown"
-        Background="{DynamicResource AccentColor}"
-        WindowState="Maximized">
+        WindowState="Maximized" Background="{DynamicResource AccentColor}">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -45,7 +45,7 @@
                     <ScrollViewer Grid.Row="1" 
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
+                        <StackPanel Background="#272727">
                             <Components:ViewComponent/>
                             <Components:ListComponent/>
                             <Components:SearchComponent/>

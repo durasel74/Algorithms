@@ -13,14 +13,23 @@ using System.Windows.Shapes;
 
 namespace Algorithms.Resources.Components
 {
-	/// <summary>
-	/// Логика взаимодействия для SearchComponent.xaml
-	/// </summary>
 	public partial class SearchComponent : UserControl
 	{
 		public SearchComponent()
 		{
 			InitializeComponent();
+		}
+
+		private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				TextBox tBox = (TextBox)sender;
+				DependencyProperty prop = TextBox.TextProperty;
+
+				BindingExpression binding = BindingOperations.GetBindingExpression(tBox, prop);
+				if (binding != null) { binding.UpdateSource(); }
+			}
 		}
 	}
 }

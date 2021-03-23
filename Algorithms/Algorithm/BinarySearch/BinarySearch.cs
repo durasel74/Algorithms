@@ -8,6 +8,7 @@ namespace Algorithms.Algorithm.BinarySearch
 	public class BinarySearch : AlgorithmsProcessor
 	{
 		private int requiredElement;
+		private string elementState;
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
@@ -40,8 +41,8 @@ namespace Algorithms.Algorithm.BinarySearch
 		}
 
 		/// <summary>
-		/// Представляет свою версию обновления информации для алгоритма 
-		///	(Бинарный поиск).
+		/// Представляет свою версию обновления информации для алгоритма. 
+		///	(Бинарный поиск)
 		/// </summary>
 		public override void UpdateInfo()
 		{
@@ -49,11 +50,12 @@ namespace Algorithms.Algorithm.BinarySearch
 			$"Алгоритм: Бинарный поиск\n" +
 			$"Состояние: {GetState()}\n" +
 			$"Количество элементов: {Array.Count}\n" +
-			$"Попытка: {Attempt}";
+			$"Попытка: {Attempt}\n" +
+			$"Элемент: {elementState}";
 			AlgorithmInfo = info;
 		}
 
-		private bool BinSearch()
+		private void BinSearch()
 		{
 			while (!IsComplite)
 			{
@@ -61,15 +63,17 @@ namespace Algorithms.Algorithm.BinarySearch
 				Attempt += 1;
 
 				int mid = (Low + High) / 2;
-				if (Array.Count < 1) return false;
+				if (Array.Count < 1) return;
 				SelectedElement = Array[mid];
+				elementState = SelectedElement.ToString();
 
 				if (requiredElement == SelectedElement)
 				{
 					Low = mid + 1;
 					High = mid - 1;
 					ResultIndex = mid;
-					return false;
+					elementState = $"Найден ({RequiredElement})";
+					return;
 				}
 				else if (requiredElement > SelectedElement)
 					Low = mid + 1;
@@ -77,15 +81,20 @@ namespace Algorithms.Algorithm.BinarySearch
 					High = mid - 1;
 
 				if (Low > High)
-					return false;
+				{
+					elementState = $"Не найден ({RequiredElement})";
+					return;
+				}
 			}
-			return true;
+			
 		}
 		private void RestartSearch()
 		{
 			ResultIndex = -1;
 			Low = 0;
 			High = Array.Count - 1;
+			elementState = "";
+			UpdateInfo();
 		}
     }
 }

@@ -47,7 +47,7 @@ namespace Algorithms.Resources.Views
 		private void WrapPanelResize()
 		{
 			if (wrapPanel != null)
-				wrapPanel.MaxWidth = this.ActualWidth + (Container.Items.Count * 2);
+				wrapPanel.MaxWidth = this.ActualWidth + (Container.Items.Count * 1.3);
 		}
 	}
 }

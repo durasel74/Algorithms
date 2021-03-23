@@ -16,7 +16,8 @@
                              Text="{Binding Algorithm.CountFrom}"
                              Background="{DynamicResource AccentColor}"
                              BorderBrush="{DynamicResource CompColor}"
-                             Foreground="{DynamicResource PrimaryTextColor}"/>
+                             Foreground="{DynamicResource PrimaryTextColor}"
+                             KeyUp="TextBox_KeyEnterUpdate"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Margin="5" Text="До"/>
@@ -24,7 +25,8 @@
                              Text="{Binding Algorithm.CountTo}"
                              Background="{DynamicResource AccentColor}"
                              BorderBrush="{DynamicResource CompColor}"
-                             Foreground="{DynamicResource PrimaryTextColor}"/>
+                             Foreground="{DynamicResource PrimaryTextColor}"
+                             KeyUp="TextBox_KeyEnterUpdate"/>
                 </StackPanel>
             </StackPanel>
         </Expander>

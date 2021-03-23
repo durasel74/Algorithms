@@ -42,16 +42,14 @@ namespace Algorithms.Algorithm.BinarySearch
 			{
 				for (int i = 0; i < alg.Low - 1; i++)
 				{
-					var item = (ListBoxItem)numbersView.Container.
-						ItemContainerGenerator.ContainerFromIndex(i);
+					var item = GetItemForIndex(i);
 					if (item != null)
 						item.IsEnabled = false;
 				}
 				for (int i = alg.High + 2; i < alg.Array.Count; i++)
 				{
-					var item = (ListBoxItem)numbersView.Container.
-						ItemContainerGenerator.ContainerFromIndex(i);
-					if(item != null)
+					var item = GetItemForIndex(i);
+					if (item != null)
 						item.IsEnabled = false;
 				}
 			}
@@ -59,8 +57,7 @@ namespace Algorithms.Algorithm.BinarySearch
 			{
 				for (int i = 0; i < alg.Array.Count; i++)
 				{
-					var item = (ListBoxItem)numbersView.Container.
-						ItemContainerGenerator.ContainerFromIndex(i);
+					var item = GetItemForIndex(i);
 					if (i == alg.ResultIndex)
 					{
 						item.Background = (Brush)TryFindResource("NLI_Result_BGColor");
@@ -72,6 +69,21 @@ namespace Algorithms.Algorithm.BinarySearch
 						item.IsEnabled = false;
 				}
 			}
+			else if (!alg.IsRunning)
+			{
+				for (int i = 0; i < alg.Array.Count; i++)
+				{
+					var item = GetItemForIndex(i);
+					if (item != null)
+						item.IsEnabled = false;
+				}
+			}
+		}
+		private ListBoxItem GetItemForIndex(int index)
+		{
+			var item = (ListBoxItem)numbersView.Container.
+						ItemContainerGenerator.ContainerFromIndex(index);
+			return item;
 		}
 	}
 }

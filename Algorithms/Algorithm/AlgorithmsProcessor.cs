@@ -26,8 +26,8 @@ namespace Algorithms.Algorithm
         private bool showInfo;
         private string algorithmInfo;
 
-        public int CountFromLimit { get; } = -1000;
-        public int CountToLimit { get; } = 1000;
+        public int CountFromLimit { get; } = -500;
+        public int CountToLimit { get; } = 500;
         public ObservableCollection<int> Array { get { return array; } }
         public int CountFrom
         {
@@ -131,7 +131,7 @@ namespace Algorithms.Algorithm
             }
         }
 
-        public delegate bool AlgorithmHundler();
+        public delegate void AlgorithmHundler();
         public event AlgorithmHundler _algorithmEventHandler;
         public event AlgorithmHundler AlgorithmEventHandler
         {
@@ -222,12 +222,10 @@ namespace Algorithms.Algorithm
         {
             if (!IsRunning)
                 return "Готово";
-            else if (!IsPause)
-                return "Запущено";
             else if (IsPause)
                 return "Пауза";
             else
-                return "Ошибка";
+                return "Запущено";
         }
 
         /// <summary>
@@ -254,6 +252,7 @@ namespace Algorithms.Algorithm
                 {
                     if (isComplite) return false;
                     Thread.Sleep(pauseSize);
+                    UpdateInfo();
                 }
 
                 if (isComplite) return false;
@@ -264,8 +263,6 @@ namespace Algorithms.Algorithm
 
         private void StartAlgorithm()
         {
-            //bool result = _algorithmEventHandler.Invoke();
-
             _algorithmEventHandler.Invoke();
         }
         private void UpdateArray()

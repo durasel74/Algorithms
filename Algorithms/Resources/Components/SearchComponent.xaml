@@ -15,7 +15,8 @@
                              Text="{Binding Algorithm.RequiredElement}"
                              Background="{DynamicResource AccentColor}"
                              BorderBrush="{DynamicResource CompColor}"
-                             Foreground="{DynamicResource PrimaryTextColor}"/>
+                             Foreground="{DynamicResource PrimaryTextColor}"
+                             KeyUp="TextBox_KeyEnterUpdate"/>
                 </StackPanel>
             </StackPanel>
         </Expander>

@@ -51,7 +51,7 @@ namespace Algorithms.Algorithm.BinarySearch
 			$"Состояние: {GetState()}\n" +
 			$"Количество элементов: {Array.Count}\n" +
 			$"Попытка: {Attempt}\n" +
-			$"Элемент: {elementState}";
+			$"Индекс: {elementState}";
 			AlgorithmInfo = info;
 		}
 
@@ -65,14 +65,14 @@ namespace Algorithms.Algorithm.BinarySearch
 				int mid = (Low + High) / 2;
 				if (Array.Count < 1) return;
 				SelectedElement = Array[mid];
-				elementState = SelectedElement.ToString();
+				elementState = mid.ToString();
 
 				if (requiredElement == SelectedElement)
 				{
 					Low = mid + 1;
 					High = mid - 1;
 					ResultIndex = mid;
-					elementState = $"Найден ({RequiredElement})";
+					elementState = $"Найден ({ResultIndex})";
 					return;
 				}
 				else if (requiredElement > SelectedElement)
@@ -82,7 +82,7 @@ namespace Algorithms.Algorithm.BinarySearch
 
 				if (Low > High)
 				{
-					elementState = $"Не найден ({RequiredElement})";
+					elementState = $"Не найден";
 					return;
 				}
 			}

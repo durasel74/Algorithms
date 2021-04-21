@@ -13,7 +13,7 @@ namespace Algorithms.Algorithm
 	public class AlgorithmsProcessor : INotifyPropertyChanged
     {
         private const int timeDelay = 5000;
-        private const int pauseSize = 100;
+        private const int pauseTime = 100;
 
         private ObservableCollection<int> array;
         private int countFrom, countTo;
@@ -29,6 +29,7 @@ namespace Algorithms.Algorithm
         public int CountFromLimit { get; } = -500;
         public int CountToLimit { get; } = 500;
         public ObservableCollection<int> Array { get { return array; } }
+
         public int CountFrom
         {
             get { return countFrom; }
@@ -229,7 +230,7 @@ namespace Algorithms.Algorithm
         }
 
         /// <summary>
-        /// Рестарт основной части алгоритма.
+        /// Рестарт алгоритма.
         /// </summary>
         public void RestartAlgorithm()
         {
@@ -246,17 +247,17 @@ namespace Algorithms.Algorithm
         public bool TimeManagement()
         {
             UpdateInfo();
-            for (int i = 0; i < timeDelay / pauseSize; i++)
+            for (int i = 0; i < timeDelay / pauseTime; i++)
             {
                 while (isPause)
                 {
                     if (isComplite) return false;
-                    Thread.Sleep(pauseSize);
+                    Thread.Sleep((int)pauseTime);
                     UpdateInfo();
                 }
 
                 if (isComplite) return false;
-                Thread.Sleep((int)(pauseSize / speed));
+                Thread.Sleep((int)(pauseTime / (speed / 2)));
 			}
             return true;
         }

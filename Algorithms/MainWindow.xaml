@@ -339,8 +339,8 @@
                               VerticalScrollBarVisibility="Auto"
                               Margin="3">
                     <StackPanel Margin="5">
-                        <Button Content="Бинарный поиск"
-                                CommandParameter="BinarySearch"
+                        <Button Content="Поиск в массиве"
+                                CommandParameter="ArraySearch"
                                 Click="CloseWindowAfterOpening"/>
                         <Button/>
                         <Button/>

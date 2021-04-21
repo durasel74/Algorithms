@@ -25,7 +25,7 @@ namespace Algorithms
         {
             switch (algorithm)
             {
-                case "BinarySearch":
+                case "ArraySearch":
                     var algorithmWindow = new Algorithm.BinarySearch.View();
                     algorithmWindow.Show();
                     break;

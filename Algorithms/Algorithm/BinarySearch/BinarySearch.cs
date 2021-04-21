@@ -63,9 +63,9 @@ namespace Algorithms.Algorithm.BinarySearch
 				Attempt += 1;
 
 				int mid = (Low + High) / 2;
-				if (Array.Count < 1) return;
-				SelectedElement = Array[mid];
 				elementState = mid.ToString();
+				if (Array.IndexOf(mid) != -1)
+					SelectedElement = Array[mid];
 
 				if (requiredElement == SelectedElement)
 				{
@@ -86,7 +86,6 @@ namespace Algorithms.Algorithm.BinarySearch
 					return;
 				}
 			}
-			
 		}
 		private void RestartSearch()
 		{

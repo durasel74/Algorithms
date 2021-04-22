@@ -12,7 +12,7 @@ namespace Algorithms.Algorithm
     /// </summary>
 	public class AlgorithmsProcessor : INotifyPropertyChanged
     {
-        private const int timeDelay = 5000;
+        private const int timeCell = 206;
         private const int pauseTime = 100;
 
         private ObservableCollection<int> array;
@@ -196,14 +196,6 @@ namespace Algorithms.Algorithm
         }
 
         /// <summary>
-        /// Запускает событие перезагрузки.
-        /// </summary>
-        public void RestartEvent()
-        {
-            RestartEventHandler.Invoke();
-        }
-
-        /// <summary>
         /// Обновление информации о работе алгоритма.
         /// </summary>
         public virtual void UpdateInfo()
@@ -230,6 +222,14 @@ namespace Algorithms.Algorithm
         }
 
         /// <summary>
+        /// Запускает событие перезагрузки.
+        /// </summary>
+        public void RestartEvent()
+        {
+            RestartEventHandler.Invoke();
+        }
+
+        /// <summary>
         /// Рестарт алгоритма.
         /// </summary>
         public void RestartAlgorithm()
@@ -247,7 +247,9 @@ namespace Algorithms.Algorithm
         public bool TimeManagement()
         {
             UpdateInfo();
-            for (int i = 0; i < timeDelay / pauseTime; i++)
+            int timeWait;
+
+            for (int i = 0; i < (int)timeCell - speed * 2; i++)
             {
                 while (isPause)
                 {
@@ -255,9 +257,10 @@ namespace Algorithms.Algorithm
                     Thread.Sleep((int)pauseTime);
                     UpdateInfo();
                 }
-
                 if (isComplite) return false;
-                Thread.Sleep((int)(pauseTime / (speed / 2)));
+
+                timeWait = 5;
+                Thread.Sleep(timeWait);
 			}
             return true;
         }

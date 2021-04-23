@@ -10,7 +10,7 @@
         Title="Бинарный поиск" MinWidth="600" MinHeight="400" Height="450" 
         Width="800" Closing="Window_Closing" MouseDown="Window_MouseDown"
         WindowState="Maximized" Background="{DynamicResource AccentColor}">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -23,16 +23,18 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-
             <GridSplitter Grid.Column="1" VerticalAlignment="Stretch"
                           HorizontalAlignment="Center"/>
 
+            <!--#region View -->
             <Border x:Name="AlgView" Grid.Column="0" 
                     Background="{StaticResource MainColor}">
                 <Views:NumbersView x:Name="numbersView"/>
             </Border>
+            <!--#endregion-->
 
-            <Border x:Name="Inspector" Grid.Column="2" BorderThickness="0"
+            <!--#region Components -->
+            <Border x:Name="Components" Grid.Column="2" BorderThickness="0"
                     Background="{StaticResource MainColor}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -45,34 +47,25 @@
                     <ScrollViewer Grid.Row="1" 
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto">
-                        <StackPanel Background="#272727">
+                        <StackPanel Style="{StaticResource ComponentsEnabled}"
+                                    Background="#272727">
                             <Components:ViewComponent/>
                             <Components:ListComponent/>
                             <Components:SearchComponent/>
-                            
-                            <Components:TestComponent/>
-                            <Components:TestComponent/>
-                            <Components:TestComponent/>
-                            <Components:TestComponent/>
-                            <Components:TestComponent/>
 
-                            <StackPanel.Style>
-                                <Style TargetType="StackPanel">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Algorithm.IsComplite}"
-                                                     Value="False">
-                                            <Setter Property="IsEnabled"
-                                                    Value="False"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Style>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
+                            <Components:TestComponent/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
             </Border>
+            <!--#endregion-->
         </Grid>
 
+        <!--#region StatusBar -->
         <Grid x:Name="StatusBar" Grid.Row="1" DataContext="{Binding Algorithm}"
               Background="{StaticResource CompColor}">
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -82,5 +75,6 @@
                        Margin="0,0,10,0"
                        Text="999 | Элементы"/>
         </Grid>
+        <!--#endregion-->
     </Grid>
 </Window>

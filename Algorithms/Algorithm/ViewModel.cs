@@ -17,9 +17,7 @@ namespace Algorithms.Algorithm
             {
                 return startCommnad ??
                     (startCommnad = new ButtonCommand(obj =>
-                    {
-                        algorithm.Run();
-                    }));
+                    { algorithm.Run(); }));
             }
         }
         public ButtonCommand RestartCommand
@@ -28,10 +26,7 @@ namespace Algorithms.Algorithm
             {
                 return restartCommand ??
                     (restartCommand = new ButtonCommand(obj =>
-                    {
-                        algorithm.Close();
-                        algorithm.RestartEvent();
-                    }));
+                    { algorithm.Restart(); }));
             }
         }
 

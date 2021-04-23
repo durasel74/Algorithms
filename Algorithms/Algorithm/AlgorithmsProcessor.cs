@@ -12,80 +12,49 @@ namespace Algorithms.Algorithm
     /// </summary>
 	public class AlgorithmsProcessor : INotifyPropertyChanged
     {
-        private const int timeCell = 206;
-        private const int pauseTime = 100;
+        private const int timeStepLimit = 206;
+        private const int timeStep = 5;
+        private const int timePause = 100;
+        private const int countFromLimit = -500;
+        private const int countToLimit = 500;
+        private readonly ObservableCollection<int> array;
 
-        private ObservableCollection<int> array;
-        private int countFrom, countTo;
-        private int selectedElement;
+        private bool isRunning;
         private bool isComplite;
         private bool isPause;
-        private bool isRunning;
         private double speed;
+        private int countFrom, countTo;
+        private int selectedElement;
         private int attempt;
-        private bool showInfo;
         private string algorithmInfo;
+        private bool showInfo;
 
-        public int CountFromLimit { get; } = -500;
-        public int CountToLimit { get; } = 500;
         public ObservableCollection<int> Array { get { return array; } }
 
-        public int CountFrom
+        /// <summary>
+        /// Запущен ли в данный момент алгоритм.
+        /// </summary>
+        public bool IsRunning
         {
-            get { return countFrom; }
-            set
-            {
-                if (value < CountFromLimit)
-                    countFrom = CountFromLimit;
-                else if (value > CountTo)
-                    countFrom = CountTo;
-                else
-                    countFrom = value;
-
-                if (RestartEventHandler != null)
-                    RestartEvent();
-				OnPropertyChanged("CountFrom");
-			}
-		}
-        public int CountTo
-        {
-            get { return countTo; }
-            set
-            {
-                if (value > CountToLimit)
-                    countTo = CountToLimit;
-                else if (value < CountFrom)
-                    countTo = CountFrom;
-                else
-                    countTo = value;
-
-                if (RestartEventHandler != null)
-                    RestartEvent();
-                OnPropertyChanged("CountTo");
-            }
+            get { return isRunning; }
         }
-        public int SelectedElement
+
+        /// <summary>
+        /// Завершил ли работу алгоритм.
+        /// </summary>
+        public bool IsComplite
         {
-            get { return selectedElement; }
-            set
-            {
-                selectedElement = value;
-                OnPropertyChanged("SelectedElement");
-            }
-        }
-		public bool IsComplite
-		{
-			get { return isComplite; }
+            get { return isComplite; }
             set
             {
                 isComplite = value;
                 OnPropertyChanged("IsComplite");
-			}
-		}
-		public bool IsRunning
-        {
-            get { return isRunning; }
+            }
         }
+
+        /// <summary>
+        /// Приостановлен ли в данный момент алгоритм.
+        /// </summary>
         public bool IsPause
         {
             get { return isPause; }
@@ -93,8 +62,12 @@ namespace Algorithms.Algorithm
             {
                 isPause = value;
                 OnPropertyChanged("IsPause");
-			}
-		}
+            }
+        }
+
+        /// <summary>
+        /// Скорость выполнения алгоритма.
+        /// </summary>
         public double Speed
         {
             get { return speed; }
@@ -104,6 +77,63 @@ namespace Algorithms.Algorithm
                 OnPropertyChanged("Speed");
             }
         }
+
+        /// <summary>
+        /// Граница начального значения массива.
+        /// </summary>
+        public int CountFrom
+        {
+            get { return countFrom; }
+            set
+            {
+                countFrom = CountLimitCheck(value);
+                if (value > CountTo)
+                    countFrom = CountTo;
+                else
+                    countFrom = value;
+
+                if (RestartEventHandler != null)
+                    Restart();
+				OnPropertyChanged("CountFrom");
+			}
+		}
+
+        /// <summary>
+        /// Граница последнего значения массива.
+        /// </summary>
+        public int CountTo
+        {
+            get { return countTo; }
+            set
+            {
+                countTo = CountLimitCheck(value);
+                if (value < CountFrom)
+					countTo = CountFrom;
+				else
+					countTo = value;
+
+				if (RestartEventHandler != null)
+                    Restart();
+                OnPropertyChanged("CountTo");
+            }
+        }
+
+        /// <summary>
+        /// Элемент, обрабатываемый алгоритмом в данный момент.
+        /// </summary>
+        public int SelectedElement
+        {
+            get { return selectedElement; }
+            set
+            {
+                selectedElement = value;
+                OnPropertyChanged("SelectedElement");
+            }
+        }
+
+        /// <summary>
+        /// Шаг или итерация выполнения алгоритма.
+        /// </summary>
         public int Attempt 
         { 
             get { return attempt; } 
@@ -113,15 +143,10 @@ namespace Algorithms.Algorithm
                 OnPropertyChanged("Attempt");
 			}
         }
-        public bool ShowInfo
-        {
-            get { return showInfo; }
-            set
-            {
-                showInfo = value;
-                OnPropertyChanged("ShowInfo");
-			}
-		}
+
+        /// <summary>
+        /// Информация о работе алгоритма.
+        /// </summary>
         public string AlgorithmInfo
         {
             get { return algorithmInfo; }
@@ -132,21 +157,24 @@ namespace Algorithms.Algorithm
             }
         }
 
-        public delegate void AlgorithmHundler();
-        public event AlgorithmHundler _algorithmEventHandler;
-        public event AlgorithmHundler AlgorithmEventHandler
+        /// <summary>
+        /// Нужно ли показывать информацию о работе алгоритма.
+        /// </summary>
+        public bool ShowInfo
         {
-            add
+            get { return showInfo; }
+            set
             {
-                _algorithmEventHandler += value;
-                UpdateInfo();
-            }
-            remove
-            {
-                _algorithmEventHandler -= value;
-            }
-        }
+                showInfo = value;
+                OnPropertyChanged("ShowInfo");
+			}
+		}
 
+        // Событие запуска алгоритма
+        public delegate void AlgorithmHundler();
+        public event AlgorithmHundler AlgorithmEventHandler;
+
+        // Событие перезапуска алгоритма
         public delegate void AlgorithmRestart();
         public event AlgorithmRestart RestartEventHandler;
 
@@ -159,11 +187,28 @@ namespace Algorithms.Algorithm
             IsComplite = true;
             IsPause = true;
             isRunning = false;
-            Speed = 15;
+            Speed = 90;
             ShowInfo = true;
+
             RestartEventHandler += RestartAlgorithm;
             UpdateInfo();
-            RestartEvent();
+            Restart();
+        }
+
+        /// <summary>
+        /// Нормализация размера массива относительно максимально возможного. 
+        /// (Не изменяет значение, если границы не были превышены.)
+        /// </summary>
+        /// <param name="value">Нормализуемое значение.</param>
+        /// <returns>Нормализованное значение.</returns>
+        public int CountLimitCheck(int value)
+        {
+            if (value < countFromLimit)
+                return countFromLimit;
+            else if (value > countToLimit)
+                return countToLimit;
+            else
+                return value;
         }
 
         /// <summary>
@@ -173,7 +218,7 @@ namespace Algorithms.Algorithm
         {
             if (!isRunning)
             {
-                RestartEvent();
+                Restart();
 
                 isRunning = true;
                 IsComplite = false;
@@ -187,6 +232,16 @@ namespace Algorithms.Algorithm
         }
 
         /// <summary>
+        /// Перезапускает алгоритм.
+        /// </summary>
+        public void Restart()
+        {
+            Close();
+            RestartEventHandler.Invoke();
+            UpdateInfo();
+		}
+
+        /// <summary>
         /// Останавливает работу алгоритма.
         /// </summary>
         public void Close()
@@ -196,15 +251,26 @@ namespace Algorithms.Algorithm
         }
 
         /// <summary>
-        /// Обновление информации о работе алгоритма.
+        /// Управляет скоростью выполнения алгоритма и паузами.
         /// </summary>
-        public virtual void UpdateInfo()
+        /// <returns>Был ли выход непринужденным</returns>
+        public bool TimeManagement()
         {
-            string info = "" +
-            $"Состояние: {GetState()}\n" +
-            $"Количество элементов: {Array.Count}\n" +
-            $"Попытка: {Attempt}";
-            AlgorithmInfo = info;
+            UpdateInfo();
+            int stepCount = (int)(timeStepLimit - speed * 2);
+
+            for (int i = 0; i < stepCount; i++)
+            {
+                while (isPause)
+                {
+                    if (isComplite) return false;
+                    Thread.Sleep((int)timePause);
+                    UpdateInfo();
+                }
+                if (isComplite) return false;
+                Thread.Sleep(timeStep);
+            }
+            return true;
         }
 
         /// <summary>
@@ -222,53 +288,47 @@ namespace Algorithms.Algorithm
         }
 
         /// <summary>
-        /// Запускает событие перезагрузки.
+        /// Обновление информации о работе алгоритма.
         /// </summary>
-        public void RestartEvent()
+        public virtual void UpdateInfo()
         {
-            RestartEventHandler.Invoke();
+            string info = "" +
+            $"Состояние: {GetState()}\n" +
+            $"Количество элементов: {Array.Count}\n" +
+            $"Попытка: {Attempt}";
+            AlgorithmInfo = info;
         }
 
         /// <summary>
-        /// Рестарт алгоритма.
+        /// Безопасное получение элемента списка.
         /// </summary>
-        public void RestartAlgorithm()
+        /// <returns></returns>
+        public bool GetArrayElement(int index, ref int element)
+        {
+            bool result = false;
+            if (Array.Count != 0)
+            {
+                element = Array[index];
+                result = true;
+            }
+            return result;
+		}
+
+        // Вызывает событие запуска алгоритма
+        private void StartAlgorithm()
+        {
+            AlgorithmEventHandler.Invoke();
+        }
+
+        // Сброс основной части алгоритма
+        private void RestartAlgorithm()
         {
             Attempt = 0;
             UpdateArray();
-            SelectedElement = CountFromLimit - 1;
-            UpdateInfo();
+            SelectedElement = countFromLimit - 1;
         }
 
-        /// <summary>
-        /// Управляет скоростью выполнения алгоритма и паузами.
-        /// </summary>
-        /// <returns>Был ли выход непринужденным</returns>
-        public bool TimeManagement()
-        {
-            UpdateInfo();
-            int timeWait;
-
-            for (int i = 0; i < (int)timeCell - speed * 2; i++)
-            {
-                while (isPause)
-                {
-                    if (isComplite) return false;
-                    Thread.Sleep((int)pauseTime);
-                    UpdateInfo();
-                }
-                if (isComplite) return false;
-
-                timeWait = 5;
-                Thread.Sleep(timeWait);
-			}
-            return true;
-        }
-
-        private void StartAlgorithm()
-        {
-            _algorithmEventHandler.Invoke();
-        }
+        // Очищает и заполняет массив по новой
         private void UpdateArray()
         {
             array.Clear();

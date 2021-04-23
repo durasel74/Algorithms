@@ -7,24 +7,22 @@ namespace Algorithms.Algorithm.BinarySearch
 	/// </summary>
 	public class BinarySearch : AlgorithmsProcessor
 	{
+		private string algorithmName = "Бинарный поиск";
+
 		private int requiredElement;
+		private int mid;
 		private string elementState;
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
 		public int ResultIndex { get; private set; }
+
 		public int RequiredElement
 		{ 
 			get { return requiredElement; }
 			set
 			{
-				if (value < CountFromLimit)
-					requiredElement = CountFromLimit;
-				else if (value > CountToLimit)
-					requiredElement = CountToLimit;
-				else
-					requiredElement = value;
-
+				requiredElement = CountLimitCheck(value);
 				OnPropertyChanged("FindElement");
 			}
 		}
@@ -42,12 +40,12 @@ namespace Algorithms.Algorithm.BinarySearch
 
 		/// <summary>
 		/// Представляет свою версию обновления информации для алгоритма. 
-		///	(Бинарный поиск)
+		///	(Поиск в массиве)
 		/// </summary>
 		public override void UpdateInfo()
 		{
 			string info = "" +
-			$"Алгоритм: Бинарный поиск\n" +
+			$"Алгоритм: {algorithmName}\n" +
 			$"Состояние: {GetState()}\n" +
 			$"Количество элементов: {Array.Count}\n" +
 			$"Попытка: {Attempt}\n" +
@@ -57,15 +55,17 @@ namespace Algorithms.Algorithm.BinarySearch
 
 		private void BinSearch()
 		{
+			int selectedElement;
 			while (!IsComplite)
 			{
-				if(!TimeManagement()) break;
+				if (!TimeManagement()) break;
 				Attempt += 1;
-
-				int mid = (Low + High) / 2;
+				mid = (Low + High) / 2;
 				elementState = mid.ToString();
-				if (Array.IndexOf(mid) != -1)
-					SelectedElement = Array[mid];
+
+				selectedElement = SelectedElement;
+				if (!GetArrayElement(mid, ref selectedElement)) return;
+				SelectedElement = selectedElement;
 
 				if (requiredElement == SelectedElement)
 				{

@@ -54,6 +54,33 @@
     </Style>
     <!--#endregion-->
 
+    <!--#region Список для сортировки-->
+    <Style TargetType="ListBox" x:Key="SortingList">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ViewElementStyle}" Value="1">
+                <Setter Property="ItemContainerStyle" 
+                        Value="{DynamicResource ResourceKey=SortingItemRectangleStyle}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Элементы списка для сортировки-->
+    <Style TargetType="ListBoxItem" x:Key="SortingItem">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Width" Value="5"/>
+        <Setter Property="Height" Value="{Binding }"/>
+        <Setter Property="Margin" Value="{DynamicResource SLI_Margin}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource SLI_BorderThickness}"/>
+        <Setter Property="Background" Value="{DynamicResource SLI_BGColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SLI_BorderColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SLI_FGColor}"/>
+    </Style>
+    <!--#endregion-->
     <!--#endregion-->
 
 </ResourceDictionary>

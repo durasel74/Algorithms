@@ -26,8 +26,12 @@ namespace Algorithms
             switch (algorithm)
             {
                 case "ArraySearch":
-                    var algorithmWindow = new Algorithm.BinarySearch.View();
-                    algorithmWindow.Show();
+                    var SearchWindow = new Algorithm.BinarySearch.View();
+                    SearchWindow.Show();
+                    break;
+                case "EasySortings":
+                    var SortingsWindow = new Algorithm.EasySortings.View();
+                    SortingsWindow.Show();
                     break;
             }
 		}

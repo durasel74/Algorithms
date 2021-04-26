@@ -3,7 +3,7 @@
 namespace Algorithms.Algorithm.BinarySearch
 {
 	/// <summary>
-	/// Алгоритм бинарного поиска в списке.
+	/// Алгоритм поиска в массиве.
 	/// </summary>
 	public class BinarySearch : AlgorithmsProcessor
 	{

@@ -342,7 +342,9 @@
                         <Button Content="Поиск в массиве"
                                 CommandParameter="ArraySearch"
                                 Click="CloseWindowAfterOpening"/>
-                        <Button/>
+                        <Button Content="Простые сортировки"
+                                CommandParameter="EasySortings"
+                                Click="CloseWindowAfterOpening"/>
                         <Button/>
                         <Button/>
                         <Button/>

@@ -46,7 +46,6 @@
     <Style TargetType="ListBoxItem" x:Key="NumberItemSquareStyle"
            BasedOn="{StaticResource NumberItem}">
         <Setter Property="Template" Value="{StaticResource NumberItemSquare}"/>
-        <Setter Property="BorderThickness" Value="100"/>
     </Style>
     <!--#endregion-->
 
@@ -115,6 +114,73 @@
     <SolidColorBrush x:Key="NLI_Result_BGColor" Color="Black"/>
     <SolidColorBrush x:Key="NLI_Result_BorderColor" Color="#284"/>
     <SolidColorBrush x:Key="NLI_Result_FGColor" Color="White"/>
+    <!--#endregion-->
+    <!--#endregion-->
+    
+    <!--#region Список для сортировки -->
+    <!--Sorting List Item => SLI-->
+    
+    <!--#region Формы элементов-->
+    
+    <!--#region Прямоугольный элемент-->
+    <ControlTemplate TargetType="ListBoxItem" x:Key="SortingItemRectangle">
+        <Grid>
+            <Border x:Name="bg" Width="{TemplateBinding Width}"
+                    Height="{TemplateBinding Height}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    BorderThickness="{DynamicResource SLI_BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" 
+                        Value="{DynamicResource SLI_Select_BGColor}"/>
+                <Setter Property="BorderBrush" 
+                        Value="{DynamicResource SLI_Select_BorderColor}"/>
+                <Setter Property="Foreground" 
+                        Value="{DynamicResource SLI_Select_FGColor}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" 
+                        Value="{DynamicResource SLI_Disabled_BGColor}"/>
+                <Setter Property="BorderBrush" 
+                        Value="{DynamicResource SLI_Disabled_BorderColor}"/>
+                <Setter Property="Foreground" 
+                        Value="{DynamicResource SLI_Disabled_FGColor}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="ListBoxItem" x:Key="SortingItemRectangleStyle"
+           BasedOn="{StaticResource SortingItem}">
+        <Setter Property="Template" Value="{StaticResource SortingItemRectangle}"/>
+    </Style>
+    <!--#endregion-->
+    <!--#endregion-->
+
+    <!--#region Внешний вид элементов-->
+    <Thickness x:Key="SLI_Margin">3</Thickness>
+    <Thickness x:Key="SLI_BorderThickness">2</Thickness>
+    <!--#endregion-->
+
+    <!--#region Цвета элементов -->
+    <SolidColorBrush x:Key="SLI_BGColor" Color="#001"/>
+    <SolidColorBrush x:Key="SLI_BorderColor" Color="MidnightBlue"/>
+    <SolidColorBrush x:Key="SLI_FGColor" Color="MediumVioletRed"/>
+
+    <SolidColorBrush x:Key="SLI_Select_BGColor" Color="#284"/>
+    <SolidColorBrush x:Key="SLI_Select_BorderColor" Color="MediumVioletRed"/>
+    <SolidColorBrush x:Key="SLI_Select_FGColor" Color="Black"/>
+
+    <SolidColorBrush x:Key="SLI_Disabled_BGColor" Color="Black"/>
+    <SolidColorBrush x:Key="SLI_Disabled_BorderColor" Color="Black"/>
+    <SolidColorBrush x:Key="SLI_Disabled_FGColor" Color="Black"/>
+
+    <!--<SolidColorBrush x:Key="SLI_Result_BGColor" Color="Black"/>
+    <SolidColorBrush x:Key="SLI_Result_BorderColor" Color="#284"/>
+    <SolidColorBrush x:Key="SLI_Result_FGColor" Color="White"/>-->
     <!--#endregion-->
     <!--#endregion-->
     

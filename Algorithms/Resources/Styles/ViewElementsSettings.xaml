@@ -161,13 +161,13 @@
     <!--#endregion-->
 
     <!--#region Внешний вид элементов-->
-    <Thickness x:Key="SLI_Margin">3</Thickness>
-    <Thickness x:Key="SLI_BorderThickness">2</Thickness>
+    <Thickness x:Key="SLI_Margin">0</Thickness>
+    <Thickness x:Key="SLI_BorderThickness">0,0,1,0</Thickness>
     <!--#endregion-->
 
     <!--#region Цвета элементов -->
-    <SolidColorBrush x:Key="SLI_BGColor" Color="#001"/>
-    <SolidColorBrush x:Key="SLI_BorderColor" Color="MidnightBlue"/>
+    <SolidColorBrush x:Key="SLI_BGColor" Color="White"/>
+    <SolidColorBrush x:Key="SLI_BorderColor" Color="Black"/>
     <SolidColorBrush x:Key="SLI_FGColor" Color="MediumVioletRed"/>
 
     <SolidColorBrush x:Key="SLI_Select_BGColor" Color="#284"/>

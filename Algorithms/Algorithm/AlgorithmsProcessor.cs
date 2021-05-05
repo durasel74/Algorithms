@@ -87,11 +87,8 @@ namespace Algorithms.Algorithm
             set
             {
                 countFrom = CountLimitCheck(value);
-                if (value > CountTo)
+                if (countFrom > CountTo)
                     countFrom = CountTo;
-                else
-                    countFrom = value;
-
                 if (RestartEventHandler != null)
                     Restart();
 				OnPropertyChanged("CountFrom");
@@ -107,11 +104,8 @@ namespace Algorithms.Algorithm
             set
             {
                 countTo = CountLimitCheck(value);
-                if (value < CountFrom)
+                if (countTo < CountFrom)
 					countTo = CountFrom;
-				else
-					countTo = value;
-
 				if (RestartEventHandler != null)
                     Restart();
                 OnPropertyChanged("CountTo");
@@ -314,6 +308,18 @@ namespace Algorithms.Algorithm
             return result;
 		}
 
+        /// <summary>
+        /// Обновляет массив на основе изменений.
+        /// </summary>
+        protected virtual void UpdateArray()
+        {
+            Array.Clear();
+            for (int i = countFrom; i < countTo + 1; i++)
+            {
+                Array.Add(i);
+            }
+        }
+
         // Вызывает событие запуска алгоритма
         private void StartAlgorithm()
         {
@@ -326,15 +332,6 @@ namespace Algorithms.Algorithm
             Attempt = 0;
             UpdateArray();
             SelectedElement = countFromLimit - 1;
-        }
-
-        // Очищает и заполняет массив по новой
-        private void UpdateArray()
-        {
-            array.Clear();
-            for (int i = countFrom; i < countTo + 1; i++)
-                array.Add(i);
-            OnPropertyChanged("Array");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

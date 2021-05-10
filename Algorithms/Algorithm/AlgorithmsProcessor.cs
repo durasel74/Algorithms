@@ -12,24 +12,22 @@ namespace Algorithms.Algorithm
     /// </summary>
 	public class AlgorithmsProcessor : INotifyPropertyChanged
     {
-        private const int timeStepLimit = 206;
-        private const int timeStep = 5;
         private const int timePause = 100;
+        private const int timeStep = 2;
         private const int countFromLimit = -500;
         private const int countToLimit = 500;
-        private readonly ObservableCollection<int> array;
+        private readonly ObservableCollection<Number> array;
 
         private bool isRunning;
         private bool isComplite;
         private bool isPause;
-        private double speed;
         private int countFrom, countTo;
         private int selectedElement;
         private int attempt;
         private string algorithmInfo;
         private bool showInfo;
 
-        public ObservableCollection<int> Array { get { return array; } }
+        public ObservableCollection<Number> Array { get { return array; } }
 
         /// <summary>
         /// Запущен ли в данный момент алгоритм.
@@ -62,19 +60,6 @@ namespace Algorithms.Algorithm
             {
                 isPause = value;
                 OnPropertyChanged("IsPause");
-            }
-        }
-
-        /// <summary>
-        /// Скорость выполнения алгоритма.
-        /// </summary>
-        public double Speed
-        {
-            get { return speed; }
-            set
-            {
-                speed = value;
-                OnPropertyChanged("Speed");
             }
         }
 
@@ -174,14 +159,13 @@ namespace Algorithms.Algorithm
 
         public AlgorithmsProcessor()
         {
-            array = new ObservableCollection<int>();
+            array = new ObservableCollection<Number>();
             CountTo = 100;
             CountFrom = 1;
             SelectedElement = CountFrom - 1;
             IsComplite = true;
             IsPause = true;
             isRunning = false;
-            Speed = 90;
             ShowInfo = true;
 
             RestartEventHandler += RestartAlgorithm;
@@ -251,19 +235,18 @@ namespace Algorithms.Algorithm
         public bool TimeManagement()
         {
             UpdateInfo();
-            int stepCount = (int)(timeStepLimit - speed * 2);
 
-            for (int i = 0; i < stepCount; i++)
-            {
-                while (isPause)
-                {
-                    if (isComplite) return false;
-                    Thread.Sleep((int)timePause);
-                    UpdateInfo();
-                }
-                if (isComplite) return false;
-                Thread.Sleep(timeStep);
-            }
+			while (isPause)
+			{
+				if (isComplite) return false;
+				Thread.Sleep((int)timePause);
+				UpdateInfo();
+			}
+
+			if (isComplite) return false;
+			Thread.Sleep(10);
+			if (isComplite) return false;
+
             return true;
         }
 
@@ -302,7 +285,7 @@ namespace Algorithms.Algorithm
             bool result = false;
             if (Array.Count != 0)
             {
-                element = Array[index];
+                element = Array[index].Value;
                 result = true;
             }
             return result;
@@ -316,7 +299,7 @@ namespace Algorithms.Algorithm
             Array.Clear();
             for (int i = countFrom; i < countTo + 1; i++)
             {
-                Array.Add(i);
+                Array.Add(new Number(i));
             }
         }
 

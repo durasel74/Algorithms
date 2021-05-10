@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Windows;
-
-
-using System.Windows.Threading;
-
-
-
 
 namespace Algorithms.Algorithm.EasySortings
 {
 	public class EasySortings : AlgorithmsProcessor
 	{
+		private Random random = new Random();
+
 		private string algorithmName = "Сортировка";
 		private int sequenceInterval = 1;
+
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
@@ -60,21 +56,18 @@ namespace Algorithms.Algorithm.EasySortings
 			for (int i = CountFrom; i < CountTo * sequenceInterval + 1; 
 				i += sequenceInterval)
 			{
-				Array.Add(i);
+				Array.Add(new Number(i));
 			}
 		}
 
 		// Перемешивает массив
 		private void ShuffleArray()
 		{
-			Random random = new Random();
-			int j, temp;
+			int j;
 			for (int i = Array.Count - 1; i >= 1; i--)
 			{
 				j = random.Next(i + 1);
-				temp = Array[j];
-				Array[j] = Array[i];
-				Array[i] = temp;
+				SwapElementsInArray(j, i);
 			}
 		}
 
@@ -88,36 +81,36 @@ namespace Algorithms.Algorithm.EasySortings
 
 		private void BubbleSort()
 		{
-			
+			Number currentNumber;
+			Number secondNumber;
+
 			for (int i = 0; i < Array.Count; i++)
 			{
+				if (!TimeManagement()) return;
 				for (int j = 1; j < Array.Count; j++)
 				{
-					if (Array[j - 1] > Array[j])
+					Attempt += 1;
+
+					currentNumber = Array[j];
+					secondNumber = Array[j - 1];
+
+					if (secondNumber.Value > currentNumber.Value)
 					{
 						SwapElementsInArray(j - 1, j);
 					}
 				}
 			}
-
-			//while (!IsComplite)
-			//{
-			//	if (!TimeManagement()) break;
-
-
-
-			//}
 		}
 
 
 		private void SwapElementsInArray(int indexFirst, int indexSecond)
 		{
-			int temp = Array[indexFirst];
-			Application.Current.Dispatcher.Invoke((Action)delegate
-			{
-				Array[indexFirst] = Array[indexSecond];
-				Array[indexSecond] = temp;
-			});
+			var FirstNumber = Array[indexFirst];
+			var SecondNumber = Array[indexSecond];
+
+			int temp = Array[indexFirst].Value;
+			FirstNumber.Value = Array[indexSecond].Value;
+			SecondNumber.Value = temp;
 		}
 
 		//private void BinSearch()

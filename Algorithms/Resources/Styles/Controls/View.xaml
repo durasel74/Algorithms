@@ -74,7 +74,7 @@
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="Width" Value="5"/>
-        <Setter Property="Height" Value="{Binding}"/>
+        <Setter Property="Height" Value="{Binding Value}"/>
         <Setter Property="Margin" Value="{DynamicResource SLI_Margin}"/>
         <Setter Property="BorderThickness" Value="{DynamicResource SLI_BorderThickness}"/>
         <Setter Property="Background" Value="{DynamicResource SLI_BGColor}"/>

@@ -7,11 +7,12 @@ namespace Algorithms.Algorithm.EasySortings
 		private Random random = new Random();
 
 		private string algorithmName = "Сортировка";
-		private int sequenceInterval = 1;
+		private int sequenceInterval = 4;
 
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
+
 
 		public int SequenceInterval
 		{ 
@@ -28,6 +29,11 @@ namespace Algorithms.Algorithm.EasySortings
 		{
 			AlgorithmEventHandler += Sort;
 			RestartEventHandler += RestartSorting;
+			SetTimeProfile(TimeProfile.Sorting);
+
+			//SetTimeSpeed(TimeSwitch.Slow);
+			SetTimeSpeed(TimeSwitch.Medium);
+			//SetTimeSpeed(TimeSwitch.Fast);
 
 			Low = 0;
 			High = Array.Count - 1;
@@ -53,23 +59,13 @@ namespace Algorithms.Algorithm.EasySortings
 		protected override void UpdateArray()
 		{
 			Array.Clear();
-			for (int i = CountFrom; i < CountTo * sequenceInterval + 1; 
-				i += sequenceInterval)
+			for (int i = CountFrom; i < CountTo + 1; i += 1)
 			{
-				Array.Add(new Number(i));
+				Array.Add(new Number(i * sequenceInterval));
 			}
 		}
 
-		// Перемешивает массив
-		private void ShuffleArray()
-		{
-			int j;
-			for (int i = Array.Count - 1; i >= 1; i--)
-			{
-				j = random.Next(i + 1);
-				SwapElementsInArray(j, i);
-			}
-		}
+		
 
 		private void Sort()
 		{
@@ -86,23 +82,38 @@ namespace Algorithms.Algorithm.EasySortings
 
 			for (int i = 0; i < Array.Count; i++)
 			{
-				if (!TimeManagement()) return;
-				for (int j = 1; j < Array.Count; j++)
+				for (int j = 0; j < Array.Count - i - 1; j++)
 				{
 					Attempt += 1;
 
 					currentNumber = Array[j];
-					secondNumber = Array[j - 1];
+					secondNumber = Array[j + 1];
 
-					if (secondNumber.Value > currentNumber.Value)
+					SelectedElement = secondNumber;
+
+					if (currentNumber.Value > secondNumber.Value)
 					{
-						SwapElementsInArray(j - 1, j);
+						SwapElementsInArray(j, j + 1);
+						if (!TimeManagement()) return;
 					}
 				}
+				High = Array.Count - i - 3;
+			}
+			SelectedElement = null;
+		}
+
+		// Перемешивает массив
+		private void ShuffleArray()
+		{
+			int j;
+			for (int i = Array.Count - 1; i >= 1; i--)
+			{
+				j = random.Next(i + 1);
+				SwapElementsInArray(j, i);
 			}
 		}
 
-
+		// Меняет местами два элемента в массиве
 		private void SwapElementsInArray(int indexFirst, int indexSecond)
 		{
 			var FirstNumber = Array[indexFirst];
@@ -113,46 +124,10 @@ namespace Algorithms.Algorithm.EasySortings
 			SecondNumber.Value = temp;
 		}
 
-		//private void BinSearch()
-		//{
-		//	int selectedElement;
-		//	while (!IsComplite)
-		//	{
-		//		if (!TimeManagement()) break;
-		//		Attempt += 1;
-		//		mid = (Low + High) / 2;
-		//		elementState = mid.ToString();
-
-		//		selectedElement = SelectedElement;
-		//		if (!GetArrayElement(mid, ref selectedElement)) return;
-		//		SelectedElement = selectedElement;
-
-		//		if (requiredElement == SelectedElement)
-		//		{
-		//			Low = mid + 1;
-		//			High = mid - 1;
-		//			ResultIndex = mid;
-		//			elementState = $"Найден ({ResultIndex})";
-		//			return;
-		//		}
-		//		else if (requiredElement > SelectedElement)
-		//			Low = mid + 1;
-		//		else if (requiredElement < SelectedElement)
-		//			High = mid - 1;
-
-		//		if (Low > High)
-		//		{
-		//			elementState = $"Не найден";
-		//			return;
-		//		}
-		//	}
-		//}
-
-
 		private void RestartSorting()
 		{
-			//Low = 0;
-			//High = Array.Count - 1;
+			Low = 0;
+			High = Array.Count - 1;
 			ShuffleArray();
 			UpdateInfo();
 		}

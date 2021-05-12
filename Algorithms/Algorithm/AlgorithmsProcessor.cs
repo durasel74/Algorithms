@@ -13,16 +13,17 @@ namespace Algorithms.Algorithm
 	public class AlgorithmsProcessor : INotifyPropertyChanged
     {
         private const int timePause = 100;
-        private const int timeStep = 2;
-        private const int countFromLimit = -500;
+        private const int countFromLimit = 1;
         private const int countToLimit = 500;
         private readonly ObservableCollection<Number> array;
 
+        private TimeSetting timeSetting;
+        private int currentTimeSpeed;
         private bool isRunning;
         private bool isComplite;
         private bool isPause;
         private int countFrom, countTo;
-        private int selectedElement;
+        private Number selectedElement;
         private int attempt;
         private string algorithmInfo;
         private bool showInfo;
@@ -100,7 +101,7 @@ namespace Algorithms.Algorithm
         /// <summary>
         /// Элемент, обрабатываемый алгоритмом в данный момент.
         /// </summary>
-        public int SelectedElement
+        public Number SelectedElement
         {
             get { return selectedElement; }
             set
@@ -162,7 +163,7 @@ namespace Algorithms.Algorithm
             array = new ObservableCollection<Number>();
             CountTo = 100;
             CountFrom = 1;
-            SelectedElement = CountFrom - 1;
+            SelectedElement =  null;
             IsComplite = true;
             IsPause = true;
             isRunning = false;
@@ -172,6 +173,43 @@ namespace Algorithms.Algorithm
             UpdateInfo();
             Restart();
         }
+
+        /// <summary>
+        /// Устанавливает профиль времени для алгоритма.
+        /// </summary>
+        /// <param name="timeProfile">Один из вариантов профиля времени</param>
+        public void SetTimeProfile(TimeProfile timeProfile)
+        {
+             switch (timeProfile)
+             {
+                case TimeProfile.Search:
+                    timeSetting = new TimeSetting(50000000, 5000000, 500000);
+                    break;
+                case TimeProfile.Sorting:
+                    timeSetting = new TimeSetting(100000, 10000, 1000);
+                    break;
+            }
+		}
+
+        /// <summary>
+        /// Устанавливает скорость, с которой будет выполняться алгоритм.
+        /// </summary>
+        /// <param name="timeSwitch">Вариант скорости выполнения алгоритма.</param>
+        public void SetTimeSpeed(TimeSwitch timeSwitch)
+        {
+            switch (timeSwitch)
+            {
+                case TimeSwitch.Slow:
+                    currentTimeSpeed = timeSetting.Slow;
+                    break;
+                case TimeSwitch.Medium:
+                    currentTimeSpeed = timeSetting.Medium;
+                    break;
+                case TimeSwitch.Fast:
+                    currentTimeSpeed = timeSetting.Fast;
+                    break;
+            }
+		}
 
         /// <summary>
         /// Нормализация размера массива относительно максимально возможного. 
@@ -244,7 +282,8 @@ namespace Algorithms.Algorithm
 			}
 
 			if (isComplite) return false;
-			Thread.Sleep(10);
+            var now = DateTime.Now;
+            while (DateTime.Now < now.AddTicks(currentTimeSpeed)) { }
 			if (isComplite) return false;
 
             return true;
@@ -280,16 +319,16 @@ namespace Algorithms.Algorithm
         /// Безопасное получение элемента списка.
         /// </summary>
         /// <returns></returns>
-        public bool GetArrayElement(int index, ref int element)
-        {
-            bool result = false;
-            if (Array.Count != 0)
-            {
-                element = Array[index].Value;
-                result = true;
-            }
-            return result;
-		}
+  //      public bool GetArrayElement(int index, ref int element)
+  //      {
+  //          bool result = false;
+  //          if (Array.Count != 0)
+  //          {
+  //              element = Array[index].Value;
+  //              result = true;
+  //          }
+  //          return result;
+		//}
 
         /// <summary>
         /// Обновляет массив на основе изменений.
@@ -314,7 +353,7 @@ namespace Algorithms.Algorithm
         {
             Attempt = 0;
             UpdateArray();
-            SelectedElement = countFromLimit - 1;
+            SelectedElement = null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -322,6 +361,42 @@ namespace Algorithms.Algorithm
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+    }
+
+    /// <summary>
+    /// Профиль настроек скорости алгоритма.
+    /// </summary>
+    public enum TimeProfile
+    {
+        Search = 1,
+        Sorting = 2
+    }
+
+    /// <summary>
+    /// Стадии для скорости алгоритма.
+    /// </summary>
+    public enum TimeSwitch
+    { 
+        Slow = 1,
+        Medium = 2,
+        Fast = 3
+    }
+
+    /// <summary>
+    /// Хранит в себе настройки для 3 стадий скорости выполнения алгоритма.
+    /// </summary>
+	public struct TimeSetting
+    {
+        public int Slow { get; set; }
+        public int Medium { get; set; }
+        public int Fast { get; set; }
+
+        public TimeSetting(int slow, int medium, int fast)
+        {
+            Slow = slow;
+            Medium = medium;
+            Fast = fast;
         }
     }
 }

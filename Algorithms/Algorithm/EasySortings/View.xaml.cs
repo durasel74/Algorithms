@@ -20,7 +20,7 @@ namespace Algorithms.Algorithm.EasySortings
 			InitializeComponent();
 			DataContext = new ESViewModel();
 			viewModel = (ESViewModel)DataContext;
-			//numbersView.Container.SelectionChanged += NumbersView_SelectionChanged;
+			sortingView.Container.SelectionChanged += SortingView_SelectionChanged;
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -34,59 +34,40 @@ namespace Algorithms.Algorithm.EasySortings
 			Keyboard.ClearFocus();
 		}
 
-
-
-
-		//private void NumbersView_SelectionChanged(object sender, 
-		//	SelectionChangedEventArgs e)
-		//{
-		//	BinarySearch alg = (BinarySearch)viewModel.Algorithm;
-		//	if (alg.IsRunning)
-		//	{
-		//		for (int i = 0; i < alg.Low - 1; i++)
-		//		{
-		//			var item = GetItemForIndex(i);
-		//			if (item != null)
-		//				item.IsEnabled = false;
-		//		}
-		//		for (int i = alg.High + 2; i < alg.Array.Count; i++)
-		//		{
-		//			var item = GetItemForIndex(i);
-		//			if (item != null)
-		//				item.IsEnabled = false;
-		//		}
-		//	}
-		//	if (alg.ResultIndex != -1)
-		//	{
-		//		for (int i = 0; i < alg.Array.Count; i++)
-		//		{
-		//			var item = GetItemForIndex(i);
-		//			if (i == alg.ResultIndex)
-		//			{
-		//				item.Background = (Brush)TryFindResource("NLI_Result_BGColor");
-		//				item.BorderBrush = (Brush)TryFindResource("NLI_Result_BorderColor");
-		//				item.Foreground = (Brush)TryFindResource("NLI_Result_FGColor");
-		//				continue;
-		//			}
-		//			if (i != alg.ResultIndex && item != null)
-		//				item.IsEnabled = false;
-		//		}
-		//	}
-		//	else if (!alg.IsRunning)
-		//	{
-		//		for (int i = 0; i < alg.Array.Count; i++)
-		//		{
-		//			var item = GetItemForIndex(i);
-		//			if (item != null)
-		//				item.IsEnabled = false;
-		//		}
-		//	}
-		//}
-		//private ListBoxItem GetItemForIndex(int index)
-		//{
-		//	var item = (ListBoxItem)numbersView.Container.
-		//				ItemContainerGenerator.ContainerFromIndex(index);
-		//	return item;
-		//}
+		private void SortingView_SelectionChanged(object sender,
+			SelectionChangedEventArgs e)
+		{
+			EasySortings alg = (EasySortings)viewModel.Algorithm;
+			if (alg.IsRunning)
+			{
+				for (int i = 0; i < alg.Low - 1; i++)
+				{
+					var item = GetItemForIndex(i);
+					if (item != null)
+						item.IsEnabled = false;
+				}
+				for (int i = alg.High + 2; i < alg.Array.Count; i++)
+				{
+					var item = GetItemForIndex(i);
+					if (item != null)
+						item.IsEnabled = false;
+				}
+			}
+			if (!alg.IsRunning)
+			{
+				for (int i = 0; i < alg.Array.Count; i++)
+				{
+					var item = GetItemForIndex(i);
+					if (item != null)
+						item.IsEnabled = false;
+				}
+			}
+		}
+		private ListBoxItem GetItemForIndex(int index)
+		{
+			var item = (ListBoxItem)sortingView.Container.
+						ItemContainerGenerator.ContainerFromIndex(index);
+			return item;
+		}
 	}
 }

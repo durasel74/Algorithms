@@ -31,6 +31,8 @@ namespace Algorithms.Algorithm.BinarySearch
 		{
 			AlgorithmEventHandler += BinSearch;
 			RestartEventHandler += RestartSearch;
+			SetTimeProfile(TimeProfile.Search);
+			SetTimeSpeed(TimeSwitch.Medium);
 
 			Low = 0;
 			High = Array.Count - 1;
@@ -55,7 +57,6 @@ namespace Algorithms.Algorithm.BinarySearch
 
 		private void BinSearch()
 		{
-			int selectedElement;
 			while (!IsComplite)
 			{
 				if (!TimeManagement()) break;
@@ -63,11 +64,9 @@ namespace Algorithms.Algorithm.BinarySearch
 				mid = (Low + High) / 2;
 				elementState = mid.ToString();
 
-				selectedElement = SelectedElement;
-				if (!GetArrayElement(mid, ref selectedElement)) return;
-				SelectedElement = selectedElement;
+				SelectedElement = Array[mid];
 
-				if (requiredElement == SelectedElement)
+				if (requiredElement == SelectedElement.Value)
 				{
 					Low = mid + 1;
 					High = mid - 1;
@@ -75,9 +74,9 @@ namespace Algorithms.Algorithm.BinarySearch
 					elementState = $"Найден ({ResultIndex})";
 					return;
 				}
-				else if (requiredElement > SelectedElement)
+				else if (requiredElement > SelectedElement.Value)
 					Low = mid + 1;
-				else if (requiredElement < SelectedElement)
+				else if (requiredElement < SelectedElement.Value)
 					High = mid - 1;
 
 				if (Low > High)

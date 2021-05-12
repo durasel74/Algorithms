@@ -51,6 +51,7 @@
         <Setter Property="Background" Value="{DynamicResource NLI_BGColor}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource NLI_BorderColor}"/>
         <Setter Property="Foreground" Value="{DynamicResource NLI_FGColor}"/>
+        <Setter Property="Content" Value="{Binding Value}"/>
     </Style>
     <!--#endregion-->
 
@@ -59,13 +60,8 @@
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="Transparent"/>
-
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding ViewElementStyle}" Value="1">
-                <Setter Property="ItemContainerStyle" 
-                        Value="{DynamicResource ResourceKey=SortingItemRectangleStyle}"/>
-            </DataTrigger>
-        </Style.Triggers>
+        <Setter Property="ItemContainerStyle" 
+                Value="{DynamicResource ResourceKey=SortingItemRectangleStyle}"/>
     </Style>
     <!--#endregion-->
 
@@ -73,13 +69,12 @@
     <Style TargetType="ListBoxItem" x:Key="SortingItem">
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
-        <Setter Property="Width" Value="5"/>
+        <Setter Property="Width" Value="8"/>
         <Setter Property="Height" Value="{Binding Value}"/>
         <Setter Property="Margin" Value="{DynamicResource SLI_Margin}"/>
         <Setter Property="BorderThickness" Value="{DynamicResource SLI_BorderThickness}"/>
         <Setter Property="Background" Value="{DynamicResource SLI_BGColor}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource SLI_BorderColor}"/>
-        <Setter Property="Foreground" Value="{DynamicResource SLI_FGColor}"/>
     </Style>
     <!--#endregion-->
     <!--#endregion-->

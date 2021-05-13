@@ -27,6 +27,7 @@ namespace Algorithms.Algorithm
         private int attempt;
         private string algorithmInfo;
         private bool showInfo;
+        private int sequenceInterval;
 
         public ObservableCollection<Number> Array { get { return array; } }
 
@@ -150,6 +151,20 @@ namespace Algorithms.Algorithm
 			}
 		}
 
+        /// <summary>
+        /// Интервал между выводимыми числами.
+        /// </summary>
+        public int SequenceInterval
+        { 
+            get { return sequenceInterval; }
+            set
+            {
+                sequenceInterval = value;
+                Restart();
+                OnPropertyChanged("SequenceInterval");
+			}
+        }
+
         // Событие запуска алгоритма
         public delegate void AlgorithmHundler();
         public event AlgorithmHundler AlgorithmEventHandler;
@@ -168,6 +183,7 @@ namespace Algorithms.Algorithm
             IsPause = true;
             isRunning = false;
             ShowInfo = true;
+            sequenceInterval = 1;
 
             RestartEventHandler += RestartAlgorithm;
             UpdateInfo();
@@ -315,30 +331,15 @@ namespace Algorithms.Algorithm
             AlgorithmInfo = info;
         }
 
-        /// <summary>
-        /// Безопасное получение элемента списка.
-        /// </summary>
-        /// <returns></returns>
-  //      public bool GetArrayElement(int index, ref int element)
-  //      {
-  //          bool result = false;
-  //          if (Array.Count != 0)
-  //          {
-  //              element = Array[index].Value;
-  //              result = true;
-  //          }
-  //          return result;
-		//}
-
-        /// <summary>
-        /// Обновляет массив на основе изменений.
-        /// </summary>
-        protected virtual void UpdateArray()
+		/// <summary>
+		/// Обновляет массив на основе изменений.
+		/// </summary>
+		protected void UpdateArray()
         {
             Array.Clear();
             for (int i = countFrom; i < countTo + 1; i++)
             {
-                Array.Add(new Number(i));
+                Array.Add(new Number(i * sequenceInterval));
             }
         }
 
@@ -361,42 +362,6 @@ namespace Algorithms.Algorithm
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-    }
-
-    /// <summary>
-    /// Профиль настроек скорости алгоритма.
-    /// </summary>
-    public enum TimeProfile
-    {
-        Search = 1,
-        Sorting = 2
-    }
-
-    /// <summary>
-    /// Стадии для скорости алгоритма.
-    /// </summary>
-    public enum TimeSwitch
-    { 
-        Slow = 1,
-        Medium = 2,
-        Fast = 3
-    }
-
-    /// <summary>
-    /// Хранит в себе настройки для 3 стадий скорости выполнения алгоритма.
-    /// </summary>
-	public struct TimeSetting
-    {
-        public int Slow { get; set; }
-        public int Medium { get; set; }
-        public int Fast { get; set; }
-
-        public TimeSetting(int slow, int medium, int fast)
-        {
-            Slow = slow;
-            Medium = medium;
-            Fast = fast;
         }
     }
 }

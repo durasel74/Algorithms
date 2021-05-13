@@ -2,6 +2,9 @@
 
 namespace Algorithms.Algorithm.BinarySearch
 {
+
+
+
 	/// <summary>
 	/// Алгоритм поиска в массиве.
 	/// </summary>
@@ -38,6 +41,7 @@ namespace Algorithms.Algorithm.BinarySearch
 			High = Array.Count - 1;
 			ResultIndex = -1;
 			RequiredElement = 48;
+			SequenceInterval = 1;
 		}
 
 		/// <summary>
@@ -55,6 +59,7 @@ namespace Algorithms.Algorithm.BinarySearch
 			AlgorithmInfo = info;
 		}
 
+		//
 		private void BinSearch()
 		{
 			while (!IsComplite)
@@ -86,6 +91,8 @@ namespace Algorithms.Algorithm.BinarySearch
 				}
 			}
 		}
+
+		// Перезапускает алгоритм
 		private void RestartSearch()
 		{
 			ResultIndex = -1;

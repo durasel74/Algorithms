@@ -2,28 +2,40 @@
 
 namespace Algorithms.Algorithm.EasySortings
 {
+	/// <summary>
+	/// Варианты простых алгоритмов сортировки.
+	/// </summary>
+	public enum EasySortingProfile
+	{
+		BubbleSort = 1,
+		SelectionSort = 2,
+		InsertionSort = 3
+	}
+
+	//
 	public class EasySortings : AlgorithmsProcessor
 	{
 		private Random random = new Random();
 
 		private string algorithmName = "Сортировка";
-		private int sequenceInterval = 4;
+
+
+		private EasySortingProfile sortingProfile;
 
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
 
 
-		public int SequenceInterval
-		{ 
-			get { return sequenceInterval; }
+		public EasySortingProfile SortingProfile
+		{
+			get { return sortingProfile; }
 			set
 			{
-				sequenceInterval = value;
-				OnPropertyChanged("SequenceInterval");
+				sortingProfile = value;
+				OnPropertyChanged("SortingProfile");
 			}
 		}
-
 
 		public EasySortings()
 		{
@@ -35,9 +47,15 @@ namespace Algorithms.Algorithm.EasySortings
 			SetTimeSpeed(TimeSwitch.Medium);
 			//SetTimeSpeed(TimeSwitch.Fast);
 
+			sortingProfile = EasySortingProfile.SelectionSort;
+
 			Low = 0;
 			High = Array.Count - 1;
+			SequenceInterval = 4;
 		}
+
+
+
 
 		/// <summary>
 		/// Представляет свою версию обновления информации для алгоритма. 
@@ -53,28 +71,28 @@ namespace Algorithms.Algorithm.EasySortings
 			AlgorithmInfo = info;
 		}
 
-		/// <summary>
-		/// Представляет свою версию обновления массива. (Простая сортировка)
-		/// </summary>
-		protected override void UpdateArray()
-		{
-			Array.Clear();
-			for (int i = CountFrom; i < CountTo + 1; i += 1)
-			{
-				Array.Add(new Number(i * sequenceInterval));
-			}
-		}
 
-		
+
 
 		private void Sort()
 		{
-			BubbleSort();
+			ShuffleArray();
 
+			switch (sortingProfile)
+			{
+				case EasySortingProfile.BubbleSort:
+					BubbleSort();
+					break;
+				case EasySortingProfile.SelectionSort:
+					SelectionSort();
+					break;
+				case EasySortingProfile.InsertionSort:
 
+					break;
+			}
 		}
 
-
+		// Сортирует основной массив методом пузырька
 		private void BubbleSort()
 		{
 			Number currentNumber;
@@ -85,10 +103,8 @@ namespace Algorithms.Algorithm.EasySortings
 				for (int j = 0; j < Array.Count - i - 1; j++)
 				{
 					Attempt += 1;
-
 					currentNumber = Array[j];
 					secondNumber = Array[j + 1];
-
 					SelectedElement = secondNumber;
 
 					if (currentNumber.Value > secondNumber.Value)
@@ -98,6 +114,28 @@ namespace Algorithms.Algorithm.EasySortings
 					}
 				}
 				High = Array.Count - i - 3;
+			}
+			SelectedElement = null;
+		}
+
+		// Сортирует основной массив методом выбора
+		private void SelectionSort()
+		{
+			int priorityIndex;
+			for (int i = 0; i < Array.Count - 1; i++)
+			{
+				priorityIndex = i;
+				for (int j = i + 1; j < Array.Count; j++)
+				{
+					if (Array[j].Value < Array[priorityIndex].Value)
+					{
+						priorityIndex = j;
+						SelectedElement = Array[priorityIndex];
+					}
+					if (!TimeManagement()) return;
+				}
+				SwapElementsInArray(i, priorityIndex);
+				Low = i + 2;
 			}
 			SelectedElement = null;
 		}
@@ -124,14 +162,12 @@ namespace Algorithms.Algorithm.EasySortings
 			SecondNumber.Value = temp;
 		}
 
+		// Перезапускает алгоритм
 		private void RestartSorting()
 		{
 			Low = 0;
 			High = Array.Count - 1;
-			ShuffleArray();
 			UpdateInfo();
 		}
-
-
 	}
 }

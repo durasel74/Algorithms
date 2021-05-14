@@ -2,23 +2,40 @@
 
 namespace Algorithms.Algorithm.BinarySearch
 {
-
-
+	/// <summary>
+	/// Варианты поиска в массиве.
+	/// </summary>
+	public enum SearchProfiles
+	{
+		BinarySearch = 1,
+		SimpleSearch = 2,
+	}
 
 	/// <summary>
 	/// Алгоритм поиска в массиве.
 	/// </summary>
 	public class BinarySearch : AlgorithmsProcessor
 	{
-		private string algorithmName = "Бинарный поиск";
+		private string algorithmName = "Поиск";
+
+		private SearchProfiles searchProfile;
 
 		private int requiredElement;
-		private int mid;
 		private string elementState;
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
 		public int ResultIndex { get; private set; }
+
+		public SearchProfiles SearchProfile
+		{
+			get { return searchProfile; }
+			set
+			{
+				searchProfile = value;
+				OnPropertyChanged("SearchProfile");
+			}
+		}
 
 		public int RequiredElement
 		{ 
@@ -32,10 +49,16 @@ namespace Algorithms.Algorithm.BinarySearch
 
 		public BinarySearch()
 		{
-			AlgorithmEventHandler += BinSearch;
+			AlgorithmEventHandler += Search;
 			RestartEventHandler += RestartSearch;
 			SetTimeProfile(TimeProfile.Search);
-			SetTimeSpeed(TimeSwitch.Medium);
+
+			//SetTimeSpeed(TimeSwitch.Slow);
+			//SetTimeSpeed(TimeSwitch.Medium);
+			SetTimeSpeed(TimeSwitch.Fast);
+
+			//searchProfile = SearchProfiles.BinarySearch;
+			searchProfile = SearchProfiles.SimpleSearch;
 
 			Low = 0;
 			High = Array.Count - 1;
@@ -59,9 +82,24 @@ namespace Algorithms.Algorithm.BinarySearch
 			AlgorithmInfo = info;
 		}
 
-		//
+		// Запускает поиск числа в массиве выбранным методом
+		private void Search()
+		{
+			switch (searchProfile)
+			{
+				case SearchProfiles.BinarySearch:
+					BinSearch();
+					break;
+				case SearchProfiles.SimpleSearch:
+					SimpleSearch();
+					break;
+			}
+		}
+
+		// Совершает поиск числа в массиве с помощью бинарного поиска
 		private void BinSearch()
 		{
+			int mid;
 			while (!IsComplite)
 			{
 				if (!TimeManagement()) break;
@@ -83,6 +121,38 @@ namespace Algorithms.Algorithm.BinarySearch
 					Low = mid + 1;
 				else if (requiredElement < SelectedElement.Value)
 					High = mid - 1;
+
+				if (Low > High)
+				{
+					elementState = $"Не найден";
+					return;
+				}
+			}
+		}
+
+		// Совершает поиск числа в массиве с помощью простого поиска
+		private void SimpleSearch()
+		{
+			int currentIndex = 0;
+			while (!IsComplite)
+			{
+				if (!TimeManagement()) break;
+				Attempt += 1;
+				elementState = currentIndex.ToString();
+
+				SelectedElement = Array[currentIndex];
+
+				if (requiredElement == SelectedElement.Value)
+				{
+					Low = 1;
+					High = 0;
+					ResultIndex = currentIndex;
+					elementState = $"Найден ({ResultIndex})";
+					return;
+				}
+
+				currentIndex++;
+				Low = currentIndex + 0;
 
 				if (Low > High)
 				{

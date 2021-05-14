@@ -297,9 +297,8 @@ namespace Algorithms.Algorithm
 				UpdateInfo();
 			}
 
-			if (isComplite) return false;
             var now = DateTime.Now;
-            while (DateTime.Now < now.AddTicks(currentTimeSpeed)) { }
+            while (!isComplite && DateTime.Now < now.AddTicks(currentTimeSpeed)) { }
 			if (isComplite) return false;
 
             return true;

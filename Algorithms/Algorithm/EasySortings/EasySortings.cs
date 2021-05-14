@@ -5,7 +5,7 @@ namespace Algorithms.Algorithm.EasySortings
 	/// <summary>
 	/// Варианты простых алгоритмов сортировки.
 	/// </summary>
-	public enum EasySortingProfile
+	public enum EasySortingProfiles
 	{
 		BubbleSort = 1,
 		SelectionSort = 2,
@@ -20,14 +20,14 @@ namespace Algorithms.Algorithm.EasySortings
 		private string algorithmName = "Сортировка";
 
 
-		private EasySortingProfile sortingProfile;
+		private EasySortingProfiles sortingProfile;
 
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
 
 
-		public EasySortingProfile SortingProfile
+		public EasySortingProfiles SortingProfile
 		{
 			get { return sortingProfile; }
 			set
@@ -43,11 +43,13 @@ namespace Algorithms.Algorithm.EasySortings
 			RestartEventHandler += RestartSorting;
 			SetTimeProfile(TimeProfile.Sorting);
 
-			//SetTimeSpeed(TimeSwitch.Slow);
-			SetTimeSpeed(TimeSwitch.Medium);
+			SetTimeSpeed(TimeSwitch.Slow);
+			//SetTimeSpeed(TimeSwitch.Medium);
 			//SetTimeSpeed(TimeSwitch.Fast);
 
-			sortingProfile = EasySortingProfile.SelectionSort;
+			//sortingProfile = EasySortingProfiles.BubbleSort;
+			//sortingProfile = EasySortingProfiles.SelectionSort;
+			sortingProfile = EasySortingProfiles.InsertionSort;
 
 			Low = 0;
 			High = Array.Count - 1;
@@ -74,20 +76,20 @@ namespace Algorithms.Algorithm.EasySortings
 
 
 
+		// Сортирует основной массив выбранным методом сортировки
 		private void Sort()
 		{
 			ShuffleArray();
-
 			switch (sortingProfile)
 			{
-				case EasySortingProfile.BubbleSort:
+				case EasySortingProfiles.BubbleSort:
 					BubbleSort();
 					break;
-				case EasySortingProfile.SelectionSort:
+				case EasySortingProfiles.SelectionSort:
 					SelectionSort();
 					break;
-				case EasySortingProfile.InsertionSort:
-
+				case EasySortingProfiles.InsertionSort:
+					InsertionSort();
 					break;
 			}
 		}
@@ -96,19 +98,19 @@ namespace Algorithms.Algorithm.EasySortings
 		private void BubbleSort()
 		{
 			Number currentNumber;
-			Number secondNumber;
+			Number nextNumber;
 
 			for (int i = 0; i < Array.Count; i++)
 			{
 				for (int j = 0; j < Array.Count - i - 1; j++)
 				{
-					Attempt += 1;
 					currentNumber = Array[j];
-					secondNumber = Array[j + 1];
-					SelectedElement = secondNumber;
+					nextNumber = Array[j + 1];
+					SelectedElement = nextNumber;
 
-					if (currentNumber.Value > secondNumber.Value)
+					if (currentNumber.Value > nextNumber.Value)
 					{
+						Attempt += 1;
 						SwapElementsInArray(j, j + 1);
 						if (!TimeManagement()) return;
 					}
@@ -129,6 +131,7 @@ namespace Algorithms.Algorithm.EasySortings
 				{
 					if (Array[j].Value < Array[priorityIndex].Value)
 					{
+						Attempt += 1;
 						priorityIndex = j;
 						SelectedElement = Array[priorityIndex];
 					}
@@ -136,6 +139,32 @@ namespace Algorithms.Algorithm.EasySortings
 				}
 				SwapElementsInArray(i, priorityIndex);
 				Low = i + 2;
+			}
+			SelectedElement = null;
+		}
+
+		// Сортирует основной массив методом вставки
+		private void InsertionSort()
+		{
+			Number currentNumber;
+			Number previousNumber;
+
+			for (int i = 1; i < Array.Count; i++)
+			{
+				for (int j = i; j > 0; j--)
+				{
+					currentNumber = Array[j];
+					previousNumber = Array[j - 1];
+					SelectedElement = previousNumber;
+
+					if (previousNumber.Value > currentNumber.Value)
+					{
+						Attempt += 1;
+						SwapElementsInArray(j - 1, j);
+						if (!TimeManagement()) return;
+					}
+				}
+				//Low = i + 1 + 2;
 			}
 			SelectedElement = null;
 		}

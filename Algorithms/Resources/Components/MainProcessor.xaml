@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:Algorithms.Resources.Components"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="300">
-    
+
     <Border Style="{StaticResource ComponentBorder}" Height="50">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <!--<ColumnDefinition Width="Auto"/>-->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -28,16 +28,28 @@
             <Border Grid.Column="2" Width="2" 
                     Background="{DynamicResource AccentColor}"/>
 
-            <TextBlock Grid.Column="3" HorizontalAlignment="Center"
+
+            <StackPanel Grid.Column="3" Orientation="Horizontal"
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center">
+                <RadioButton Style="{StaticResource SpeedRadionButton}"
+                             Content="123" IsChecked="True"/>
+                <RadioButton Style="{StaticResource SpeedRadionButton}"
+                             Content="234"/>
+                <RadioButton Style="{StaticResource SpeedRadionButton}"
+                             Content="345"/>
+            </StackPanel>
+
+            <!--<TextBlock Grid.Column="3" HorizontalAlignment="Center"
                        VerticalAlignment="Center" Margin="10,0,0,0" 
                        FontSize="17" Text="Скорость:"
-                       Foreground="{DynamicResource PrimaryTextColor}"/>
-
-            <Slider Grid.Column="4" Style="{StaticResource SpeedSlider}"
+                       Foreground="{DynamicResource PrimaryTextColor}"/>-->
+            
+            <!--<Slider Grid.Column="4" Style="{StaticResource SpeedSlider}"
                     VerticalAlignment="Center" Margin="10,3,10,0" 
                     Minimum="1" Maximum="100" 
                     Value="{Binding Algorithm.Speed, 
-                        UpdateSourceTrigger=PropertyChanged}"/>
+                        UpdateSourceTrigger=PropertyChanged}"/>-->
         </Grid>
     </Border>
 </UserControl>

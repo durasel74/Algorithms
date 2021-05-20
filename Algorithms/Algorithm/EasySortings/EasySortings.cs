@@ -42,10 +42,7 @@ namespace Algorithms.Algorithm.EasySortings
 			AlgorithmEventHandler += Sort;
 			RestartEventHandler += RestartSorting;
 			SetTimeProfile(TimeProfile.Sorting);
-
-			SetTimeSpeed(TimeSwitch.Slow);
-			//SetTimeSpeed(TimeSwitch.Medium);
-			//SetTimeSpeed(TimeSwitch.Fast);
+			RadioButtonSetMedium = true;
 
 			//sortingProfile = EasySortingProfiles.BubbleSort;
 			//sortingProfile = EasySortingProfiles.SelectionSort;

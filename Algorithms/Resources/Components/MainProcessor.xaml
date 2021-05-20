@@ -13,43 +13,40 @@
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="Auto"/>
-                <!--<ColumnDefinition Width="Auto"/>-->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!--#region Кнопки проигрывания-->
             <ToggleButton Grid.Column="0"
                           Style="{StaticResource PlayButton}"
                           IsChecked="{Binding Algorithm.IsPause}"
                           Command="{Binding StartCommand}"/>
-
             <Button Grid.Column="1" Style="{StaticResource RestartButton}"
                     Command="{Binding RestartCommand}"/>
+            <!--#endregion-->
 
             <Border Grid.Column="2" Width="2" 
                     Background="{DynamicResource AccentColor}"/>
 
+            <!--#region Кнопки выбора скорости-->
+            <Grid Grid.Column="3" Margin="0,1,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="50"/>
+                    <ColumnDefinition MinWidth="50"/>
+                    <ColumnDefinition MinWidth="70"/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="3" Orientation="Horizontal"
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Center">
                 <RadioButton Style="{StaticResource SpeedRadionButton}"
-                             Content="123" IsChecked="True"/>
+                             Grid.Column="0" FontSize="1"
+                             IsChecked="{Binding Algorithm.RadioButtonSetSlow}"/>
                 <RadioButton Style="{StaticResource SpeedRadionButton}"
-                             Content="234"/>
+                             Grid.Column="1" FontSize="2"
+                             IsChecked="{Binding Algorithm.RadioButtonSetMedium}"/>
                 <RadioButton Style="{StaticResource SpeedRadionButton}"
-                             Content="345"/>
-            </StackPanel>
-
-            <!--<TextBlock Grid.Column="3" HorizontalAlignment="Center"
-                       VerticalAlignment="Center" Margin="10,0,0,0" 
-                       FontSize="17" Text="Скорость:"
-                       Foreground="{DynamicResource PrimaryTextColor}"/>-->
-            
-            <!--<Slider Grid.Column="4" Style="{StaticResource SpeedSlider}"
-                    VerticalAlignment="Center" Margin="10,3,10,0" 
-                    Minimum="1" Maximum="100" 
-                    Value="{Binding Algorithm.Speed, 
-                        UpdateSourceTrigger=PropertyChanged}"/>-->
+                             Grid.Column="2" FontSize="3"
+                             IsChecked="{Binding Algorithm.RadioButtonSetFast}"/>
+            </Grid>
+            <!--#endregion-->
         </Grid>
     </Border>
 </UserControl>

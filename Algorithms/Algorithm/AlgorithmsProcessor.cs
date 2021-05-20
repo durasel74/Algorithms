@@ -165,8 +165,59 @@ namespace Algorithms.Algorithm
 			}
         }
 
-        // Событие запуска алгоритма
-        public delegate void AlgorithmHundler();
+        #region Свойства для работы переключателя скорости
+        public bool RadioButtonSetSlow
+		{
+			get
+			{
+				if (currentTimeSpeed == timeSetting.Slow) return true;
+				else return false;
+			}
+			set
+			{
+				if (value == true)
+				{
+					SetTimeSpeed(TimeSwitch.Slow);
+					OnPropertyChanged("RadioButtonSetSlow");
+				}
+			}
+		}
+		public bool RadioButtonSetMedium
+		{
+			get
+			{
+				if (currentTimeSpeed == timeSetting.Medium) return true;
+				else return false;
+			}
+			set
+			{
+				if (value == true)
+				{
+					SetTimeSpeed(TimeSwitch.Medium);
+					OnPropertyChanged("RadioButtonSetMedium");
+				}
+			}
+		}
+		public bool RadioButtonSetFast
+		{
+			get
+			{
+				if (currentTimeSpeed == timeSetting.Fast) return true;
+				else return false;
+			}
+			set
+			{
+				if (value == true)
+				{
+					SetTimeSpeed(TimeSwitch.Fast);
+					OnPropertyChanged("RadioButtonSetFast");
+				}
+			}
+		}
+		#endregion
+
+		// Событие запуска алгоритма
+		public delegate void AlgorithmHundler();
         public event AlgorithmHundler AlgorithmEventHandler;
 
         // Событие перезапуска алгоритма

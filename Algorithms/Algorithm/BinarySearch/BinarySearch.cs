@@ -52,10 +52,7 @@ namespace Algorithms.Algorithm.BinarySearch
 			AlgorithmEventHandler += Search;
 			RestartEventHandler += RestartSearch;
 			SetTimeProfile(TimeProfile.Search);
-
-			//SetTimeSpeed(TimeSwitch.Slow);
-			//SetTimeSpeed(TimeSwitch.Medium);
-			SetTimeSpeed(TimeSwitch.Fast);
+			RadioButtonSetMedium = true;
 
 			//searchProfile = SearchProfiles.BinarySearch;
 			searchProfile = SearchProfiles.SimpleSearch;

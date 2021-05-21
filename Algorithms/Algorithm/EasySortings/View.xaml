@@ -49,8 +49,9 @@
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel Style="{StaticResource ComponentsEnabled}"
                                     Background="#272727">
-                            <Components:ViewComponent/>
+                            <Components:SortingComponent/>
                             <Components:ListComponent/>
+                            <Components:ViewComponent/>
 
                             <Components:TestComponent/>
                             <Components:TestComponent/>

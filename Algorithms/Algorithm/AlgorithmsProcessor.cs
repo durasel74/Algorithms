@@ -30,6 +30,7 @@ namespace Algorithms.Algorithm
         private int sequenceInterval;
 
         public ObservableCollection<Number> Array { get { return array; } }
+        public bool WillBeUpdate { get; set; } = true;
 
         /// <summary>
         /// Запущен ли в данный момент алгоритм.
@@ -301,7 +302,10 @@ namespace Algorithms.Algorithm
         {
             if (!isRunning)
             {
-                Restart();
+                if (WillBeUpdate == true)
+                    Restart();
+                else
+                    WillBeUpdate = true;
 
                 isRunning = true;
                 IsComplite = false;
@@ -381,6 +385,14 @@ namespace Algorithms.Algorithm
             AlgorithmInfo = info;
         }
 
+		#region Методы для наследования производными классами
+
+		public virtual void Shuffle() { }
+
+        public virtual void Reverse() { }
+
+		#endregion
+
 		/// <summary>
 		/// Обновляет массив на основе изменений.
 		/// </summary>
@@ -401,13 +413,13 @@ namespace Algorithms.Algorithm
 
         // Сброс основной части алгоритма
         private void RestartAlgorithm()
-        {
-            Attempt = 0;
+		{
+			Attempt = 0;
+			SelectedElement = null;
             UpdateArray();
-            SelectedElement = null;
-        }
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

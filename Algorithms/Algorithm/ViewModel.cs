@@ -8,9 +8,8 @@ namespace Algorithms.Algorithm
 	{
         private AlgorithmsProcessor algorithm;
 
+        // Команда старта алгоритма
         private ButtonCommand startCommnad;
-        private ButtonCommand restartCommand;
-
         public ButtonCommand StartCommand
         {
             get
@@ -20,6 +19,9 @@ namespace Algorithms.Algorithm
                     { algorithm.Run(); }));
             }
         }
+
+        // Команда перезапуска алгоритма
+        private ButtonCommand restartCommand;
         public ButtonCommand RestartCommand
         {
             get

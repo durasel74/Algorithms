@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace Algorithms.Algorithm.EasySortings
 {
@@ -12,21 +13,53 @@ namespace Algorithms.Algorithm.EasySortings
 		InsertionSort = 3
 	}
 
-	//
+	// Логика простых сортировок
 	public class EasySortings : AlgorithmsProcessor
 	{
 		private Random random = new Random();
-
-		private string algorithmName = "Сортировка";
-
-
+		private string[] sortingsVariants = { "Пузырьком", "Выбором", "Вставками" };
+		private string algorithmName = "";
 		private EasySortingProfiles sortingProfile;
-
+		private string currentSorting;
+		private bool isChanged;
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
+		public ObservableCollection<string> SortingsVariants { get; } =
+			new ObservableCollection<string>();
 
+		/// <summary>
+		/// Текущий тип сортировки, управляет выбором типа сортировки
+		/// </summary>
+		public string CurrentSorting
+		{
+			get { return currentSorting; }
+			set
+			{
+				currentSorting = value;
+				OnPropertyChanged("CurrentSorting");
 
+				switch (currentSorting)
+				{
+					case "Пузырьком":
+						sortingProfile = EasySortingProfiles.BubbleSort;
+						algorithmName = "Сортировка пузырьком";
+						break;
+					case "Выбором":
+						sortingProfile = EasySortingProfiles.SelectionSort;
+						algorithmName = "Сортировка выбором";
+						break;
+					case "Вставками":
+						sortingProfile = EasySortingProfiles.InsertionSort;
+						algorithmName = "Сортировка вставками";
+						break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Текущий профиль сортировки
+		/// </summary>
 		public EasySortingProfiles SortingProfile
 		{
 			get { return sortingProfile; }
@@ -42,19 +75,15 @@ namespace Algorithms.Algorithm.EasySortings
 			AlgorithmEventHandler += Sort;
 			RestartEventHandler += RestartSorting;
 			SetTimeProfile(TimeProfile.Sorting);
+			InitializeSortingsVariants();
 			RadioButtonSetMedium = true;
-
-			//sortingProfile = EasySortingProfiles.BubbleSort;
-			//sortingProfile = EasySortingProfiles.SelectionSort;
-			sortingProfile = EasySortingProfiles.InsertionSort;
+			isChanged = false;
+			CurrentSorting = "Пузырьком";
 
 			Low = 0;
 			High = Array.Count - 1;
 			SequenceInterval = 4;
 		}
-
-
-
 
 		/// <summary>
 		/// Представляет свою версию обновления информации для алгоритма. 
@@ -70,13 +99,34 @@ namespace Algorithms.Algorithm.EasySortings
 			AlgorithmInfo = info;
 		}
 
+		/// <summary>
+		/// Перемешивает массив, позволяя сортировать его в текущем виде
+		/// </summary>
+		public override void Shuffle()
+		{
+			Restart();
+			isChanged = true;
+			ShuffleArray();
+			WillBeUpdate = false;
+		}
 
-
+		/// <summary>
+		///  Переворачивает массив, позволяя сортировать его в текущем виде
+		/// </summary>
+		public override void Reverse()
+		{
+			Restart();
+			isChanged = true;
+			ReverseArray();
+			WillBeUpdate = false;
+		}
 
 		// Сортирует основной массив выбранным методом сортировки
 		private void Sort()
 		{
-			ShuffleArray();
+			if (!isChanged)
+				ShuffleArray();
+
 			switch (sortingProfile)
 			{
 				case EasySortingProfiles.BubbleSort:
@@ -130,8 +180,8 @@ namespace Algorithms.Algorithm.EasySortings
 					{
 						Attempt += 1;
 						priorityIndex = j;
-						SelectedElement = Array[priorityIndex];
 					}
+					SelectedElement = Array[priorityIndex];
 					if (!TimeManagement()) return;
 				}
 				SwapElementsInArray(i, priorityIndex);
@@ -177,6 +227,18 @@ namespace Algorithms.Algorithm.EasySortings
 			}
 		}
 
+		// Переворачивает массив
+		private void ReverseArray()
+		{
+			int j;
+			for (int i = 0; i < Array.Count; i++)
+			{
+				j = Array.Count - 1 - i;
+				if (i >= j) break;
+				SwapElementsInArray(i, j);
+			}
+		}
+
 		// Меняет местами два элемента в массиве
 		private void SwapElementsInArray(int indexFirst, int indexSecond)
 		{
@@ -191,9 +253,19 @@ namespace Algorithms.Algorithm.EasySortings
 		// Перезапускает алгоритм
 		private void RestartSorting()
 		{
+			isChanged = false;
 			Low = 0;
 			High = Array.Count - 1;
 			UpdateInfo();
+		}
+
+		// Инициализирует все варианты сортировки для выбора
+		private void InitializeSortingsVariants()
+		{
+			foreach (var variant in sortingsVariants)
+			{
+				SortingsVariants.Add(variant);
+			}
 		}
 	}
 }

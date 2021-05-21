@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:Algorithms.Resources.Components"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="300">
+    
     <Border Style="{StaticResource ComponentBorder}">
-        <Expander Header="Список">
+        <Expander Header="Массив">
             <StackPanel VerticalAlignment="Top" Height="100"
                         Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" Margin="5">

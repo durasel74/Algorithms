@@ -18,7 +18,7 @@ namespace Algorithms.Algorithm.EasySortings
 	{
 		private Random random = new Random();
 		private string[] sortingsVariants = { "Пузырьком", "Выбором", "Вставками" };
-		private string algorithmName = "";
+		private string algorithmName;
 		private EasySortingProfiles sortingProfile;
 		private string currentSorting;
 		private bool isChanged;
@@ -77,8 +77,8 @@ namespace Algorithms.Algorithm.EasySortings
 			SetTimeProfile(TimeProfile.Sorting);
 			InitializeSortingsVariants();
 			RadioButtonSetMedium = true;
-			isChanged = false;
 			CurrentSorting = "Пузырьком";
+			isChanged = false;
 
 			Low = 0;
 			High = Array.Count - 1;

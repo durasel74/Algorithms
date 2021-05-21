@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace Algorithms.Algorithm.BinarySearch
 {
@@ -16,17 +17,47 @@ namespace Algorithms.Algorithm.BinarySearch
 	/// </summary>
 	public class BinarySearch : AlgorithmsProcessor
 	{
-		private string algorithmName = "Поиск";
-
+		private string[] searchVariants = { "Бинарный", "Простой" };
+		private string algorithmName;
 		private SearchProfiles searchProfile;
-
+		private string currentSearch;
 		private int requiredElement;
 		private string elementState;
 
 		public int Low { get; private set; }
 		public int High { get; private set; }
 		public int ResultIndex { get; private set; }
+		public ObservableCollection<string> SearchVariants { get; } =
+			new ObservableCollection<string>();
 
+		/// <summary>
+		/// Текущий тип поиска, управляет выбором типа поиска
+		/// </summary>
+		public string CurrentSearch
+		{
+			get { return currentSearch; }
+			set
+			{
+				currentSearch = value;
+				OnPropertyChanged("CurrentSearch");
+
+				switch (currentSearch)
+				{
+					case "Бинарный":
+						searchProfile = SearchProfiles.BinarySearch;
+						algorithmName = "Бинарный поиск";
+						break;
+					case "Простой":
+						searchProfile = SearchProfiles.SimpleSearch;
+						algorithmName = "Простой поиск";
+						break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Текущий профиль поиска
+		/// </summary>
 		public SearchProfiles SearchProfile
 		{
 			get { return searchProfile; }
@@ -37,13 +68,16 @@ namespace Algorithms.Algorithm.BinarySearch
 			}
 		}
 
+		/// <summary>
+		///	Элемент, поиск которого нужно осуществить
+		/// </summary>
 		public int RequiredElement
 		{ 
 			get { return requiredElement; }
 			set
 			{
 				requiredElement = CountLimitCheck(value);
-				OnPropertyChanged("FindElement");
+				OnPropertyChanged("RequiredElement");
 			}
 		}
 
@@ -52,10 +86,9 @@ namespace Algorithms.Algorithm.BinarySearch
 			AlgorithmEventHandler += Search;
 			RestartEventHandler += RestartSearch;
 			SetTimeProfile(TimeProfile.Search);
+			InitializeSearchVariants();
 			RadioButtonSetMedium = true;
-
-			//searchProfile = SearchProfiles.BinarySearch;
-			searchProfile = SearchProfiles.SimpleSearch;
+			CurrentSearch = "Бинарный";
 
 			Low = 0;
 			High = Array.Count - 1;
@@ -168,5 +201,14 @@ namespace Algorithms.Algorithm.BinarySearch
 			elementState = "";
 			UpdateInfo();
 		}
-    }
+
+		// Инициализирует все варианты поиска для выбора
+		private void InitializeSearchVariants()
+		{
+			foreach (var variant in searchVariants)
+			{
+				SearchVariants.Add(variant);
+			}
+		}
+	}
 }

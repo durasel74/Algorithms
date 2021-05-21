@@ -6,18 +6,38 @@
              xmlns:local="clr-namespace:Algorithms.Resources.Components"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="300">
+    
     <Border Style="{StaticResource ComponentBorder}">
         <Expander Header="Поиск">
-            <StackPanel VerticalAlignment="Top" Height="100">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBlock Margin="5" Text="Элемент:"/>
-                    <TextBox Margin="5" Width="100"
+            <StackPanel Margin="5">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Margin="5,0,10,0" 
+                               Text="Тип"/>
+                    <ComboBox Grid.Column="1" Margin="10,0,5,0"
+                              ItemsSource="{Binding Algorithm.SearchVariants}"
+                              SelectedValue="{Binding Algorithm.CurrentSearch}"/>
+                </Grid>
+
+                <Grid Margin="5,20,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Margin="5,0,10,0" 
+                               Text="Элемент"/>
+                    <TextBox Grid.Column="1" Margin="10,0,5,0"
                              Text="{Binding Algorithm.RequiredElement}"
                              Background="{DynamicResource AccentColor}"
                              BorderBrush="{DynamicResource CompColor}"
                              Foreground="{DynamicResource PrimaryTextColor}"
                              KeyUp="TextBox_KeyEnterUpdate"/>
-                </StackPanel>
+                </Grid>
             </StackPanel>
         </Expander>
     </Border>

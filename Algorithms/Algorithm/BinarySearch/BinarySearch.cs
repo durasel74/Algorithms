@@ -52,6 +52,7 @@ namespace Algorithms.Algorithm.BinarySearch
 						algorithmName = "Простой поиск";
 						break;
 				}
+				UpdateInfo();
 			}
 		}
 

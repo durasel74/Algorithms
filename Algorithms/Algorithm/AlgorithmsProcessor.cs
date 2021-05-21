@@ -160,7 +160,13 @@ namespace Algorithms.Algorithm
             get { return sequenceInterval; }
             set
             {
-                sequenceInterval = value;
+                if (value < 1)
+                    sequenceInterval = 1;
+                else if (value > 10)
+                    sequenceInterval = 10;
+                else
+                    sequenceInterval = value;
+
                 Restart();
                 OnPropertyChanged("SequenceInterval");
 			}
@@ -344,18 +350,12 @@ namespace Algorithms.Algorithm
         public bool TimeManagement()
         {
             UpdateInfo();
-
-			while (isPause)
-			{
-				if (isComplite) return false;
-				Thread.Sleep((int)timePause);
-				UpdateInfo();
-			}
-
             var now = DateTime.Now;
-            while (!isComplite && DateTime.Now < now.AddTicks(currentTimeSpeed)) { }
+            while (!isComplite && DateTime.Now < now.AddTicks(currentTimeSpeed)) 
+            {
+                if (!TimeManagementPause()) return false;
+            }
 			if (isComplite) return false;
-
             return true;
         }
 
@@ -403,6 +403,18 @@ namespace Algorithms.Algorithm
             {
                 Array.Add(new Number(i * sequenceInterval));
             }
+        }
+
+        // Приостанавливает алгоритм
+        private bool TimeManagementPause()
+        {
+            while (isPause)
+            {
+                if (isComplite) return false;
+                Thread.Sleep((int)timePause);
+                UpdateInfo();
+            }
+            return true;
         }
 
         // Вызывает событие запуска алгоритма

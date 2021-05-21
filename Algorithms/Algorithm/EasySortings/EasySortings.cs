@@ -54,6 +54,7 @@ namespace Algorithms.Algorithm.EasySortings
 						algorithmName = "Сортировка вставками";
 						break;
 				}
+				UpdateInfo();
 			}
 		}
 
@@ -82,7 +83,7 @@ namespace Algorithms.Algorithm.EasySortings
 
 			Low = 0;
 			High = Array.Count - 1;
-			SequenceInterval = 4;
+			SequenceInterval = 5;
 		}
 
 		/// <summary>

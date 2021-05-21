@@ -9,26 +9,52 @@
     
     <Border Style="{StaticResource ComponentBorder}">
         <Expander Header="Массив">
-            <StackPanel VerticalAlignment="Top" Height="100"
-                        Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBlock Margin="5" Text="От"/>
-                    <TextBox Margin="5" Width="100" VerticalAlignment="Top"
+            <StackPanel Margin="5">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Margin="5,0,10,0" 
+                               Text="От"/>
+                    <TextBox Grid.Column="1" Margin="10,0,5,0"
+                             Padding="2,0,0,0"
                              Text="{Binding Algorithm.CountFrom}"
                              Background="{DynamicResource AccentColor}"
                              BorderBrush="{DynamicResource CompColor}"
                              Foreground="{DynamicResource PrimaryTextColor}"
                              KeyUp="TextBox_KeyEnterUpdate"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBlock Margin="5" Text="До"/>
-                    <TextBox Margin="5" Width="100" VerticalAlignment="Top"
+
+                    <TextBlock Grid.Column="2" Margin="15,0,10,0"  
+                               Text="До"/>
+                    <TextBox Grid.Column="3" Margin="10,0,5,0"
+                             Padding="2,0,0,0"
                              Text="{Binding Algorithm.CountTo}"
                              Background="{DynamicResource AccentColor}"
                              BorderBrush="{DynamicResource CompColor}"
                              Foreground="{DynamicResource PrimaryTextColor}"
                              KeyUp="TextBox_KeyEnterUpdate"/>
-                </StackPanel>
+                </Grid>
+
+                <Grid Margin="5,20,5,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Margin="5,0,10,0"  
+                               Text="Шаг"/>
+                    <TextBox Grid.Column="1" Margin="10,0,5,0"
+                             Padding="2,0,0,0"
+                             Text="{Binding Algorithm.SequenceInterval}"
+                             Background="{DynamicResource AccentColor}"
+                             BorderBrush="{DynamicResource CompColor}"
+                             Foreground="{DynamicResource PrimaryTextColor}"
+                             KeyUp="TextBox_KeyEnterUpdate"/>
+                </Grid>
             </StackPanel>
         </Expander>
     </Border>

@@ -6,7 +6,8 @@
     public enum TimeProfile
     {
         Search = 1,
-        Sorting = 2
+        Sorting = 2,
+        DifSorting = 3
     }
 
     /// <summary>

@@ -1,6 +1,6 @@
-﻿namespace Algorithms.Algorithm.EasySortings
+﻿namespace Algorithms.Algorithm.DifficultSortings
 {
-	public class ESViewModel : ViewModel
+	public class DSViewModel : ViewModel
 	{
 		private int viewElementStyle;
 
@@ -38,10 +38,10 @@
 			}
 		}
 
-		public ESViewModel()
+		public DSViewModel()
 		{
 			viewElementStyle = 1;
-			Algorithm = new EasySortings();
+			Algorithm = new DifficultSortings();
 		}
 	}
 }

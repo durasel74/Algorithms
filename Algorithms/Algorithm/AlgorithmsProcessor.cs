@@ -262,6 +262,9 @@ namespace Algorithms.Algorithm
                 case TimeProfile.Sorting:
                     timeSetting = new TimeSetting(100000, 10000, 1000);
                     break;
+                case TimeProfile.DifSorting:
+                    timeSetting = new TimeSetting(500000, 50000, 5000);
+                    break;
             }
 		}
 

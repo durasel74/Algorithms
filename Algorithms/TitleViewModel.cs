@@ -33,6 +33,10 @@ namespace Algorithms
                     var SortingsWindow = new Algorithm.EasySortings.View();
                     SortingsWindow.Show();
                     break;
+                case "DifficultSortings":
+                    var DifSortingsWindow = new Algorithm.DifficultSortings.View();
+                    DifSortingsWindow.Show();
+                    break;
             }
 		}
 

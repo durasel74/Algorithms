@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Algorithms.Algorithm.BinarySearch
+﻿namespace Algorithms.Algorithm.BinarySearch
 {
 	public class BSViewModel : ViewModel
 	{

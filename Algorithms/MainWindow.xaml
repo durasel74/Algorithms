@@ -345,6 +345,9 @@
                         <Button Content="Простые сортировки"
                                 CommandParameter="EasySortings"
                                 Click="CloseWindowAfterOpening"/>
+                        <Button Content="Сложные сортировки"
+                                CommandParameter="DifficultSortings"
+                                Click="CloseWindowAfterOpening"/>
                         <Button/>
                         <Button/>
                         <Button/>

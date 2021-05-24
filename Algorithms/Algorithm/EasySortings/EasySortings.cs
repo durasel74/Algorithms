@@ -152,13 +152,14 @@ namespace Algorithms.Algorithm.EasySortings
 			{
 				for (int j = 0; j < Array.Count - i - 1; j++)
 				{
+					Attempt += 1;
+
 					currentNumber = Array[j];
 					nextNumber = Array[j + 1];
 					SelectedElement = nextNumber;
 
 					if (currentNumber.Value > nextNumber.Value)
 					{
-						Attempt += 1;
 						SwapElementsInArray(j, j + 1);
 						if (!TimeManagement()) return;
 					}
@@ -177,11 +178,9 @@ namespace Algorithms.Algorithm.EasySortings
 				priorityIndex = i;
 				for (int j = i + 1; j < Array.Count; j++)
 				{
+					Attempt += 1;
 					if (Array[j].Value < Array[priorityIndex].Value)
-					{
-						Attempt += 1;
 						priorityIndex = j;
-					}
 					SelectedElement = Array[priorityIndex];
 					if (!TimeManagement()) return;
 				}
@@ -201,18 +200,18 @@ namespace Algorithms.Algorithm.EasySortings
 			{
 				for (int j = i; j > 0; j--)
 				{
+					Attempt += 1;
+
 					currentNumber = Array[j];
 					previousNumber = Array[j - 1];
 					SelectedElement = previousNumber;
 
 					if (previousNumber.Value > currentNumber.Value)
 					{
-						Attempt += 1;
 						SwapElementsInArray(j - 1, j);
 						if (!TimeManagement()) return;
 					}
 				}
-				//Low = i + 1 + 2;
 			}
 			SelectedElement = null;
 		}

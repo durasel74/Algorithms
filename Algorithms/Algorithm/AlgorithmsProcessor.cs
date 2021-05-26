@@ -257,13 +257,13 @@ namespace Algorithms.Algorithm
              switch (timeProfile)
              {
                 case TimeProfile.Search:
-                    timeSetting = new TimeSetting(50000000, 5000000, 500000);
+                    timeSetting = new TimeSetting(7_000_000, 3_000_000, 500_000);
                     break;
                 case TimeProfile.Sorting:
-                    timeSetting = new TimeSetting(100000, 10000, 1000);
+                    timeSetting = new TimeSetting(100_000, 10_000, 1_000);
                     break;
                 case TimeProfile.DifSorting:
-                    timeSetting = new TimeSetting(500000, 50000, 5000);
+                    timeSetting = new TimeSetting(500_000, 50_000, 5_000);
                     break;
             }
 		}

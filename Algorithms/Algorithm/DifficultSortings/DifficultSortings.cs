@@ -218,23 +218,19 @@ namespace Algorithms.Algorithm.DifficultSortings
 			var tempArray = new int[rightIndex - leftIndex + 1];
 			var index = 0;
 
-			int currentLeftNumber;
-			int currentRightNumber;
 			while ((currentLeft <= middleIndex) && (currentRight <= rightIndex))
 			{
 				Attempt += 1;
-				currentLeftNumber = Array[currentLeft].Value;
-				currentRightNumber = Array[currentRight].Value;
 
-				if (currentLeftNumber < currentRightNumber)
+				if (Array[currentLeft].Value < Array[currentRight].Value)
 				{
-					tempArray[index] = currentLeftNumber;
+					tempArray[index] = Array[currentLeft].Value;
 					SelectedElement = Array[currentLeft];
 					currentLeft++;
 				}
 				else
 				{
-					tempArray[index] = currentRightNumber;
+					tempArray[index] = Array[currentRight].Value;
 					SelectedElement = Array[currentRight];
 					currentRight++;
 				}
@@ -262,9 +258,9 @@ namespace Algorithms.Algorithm.DifficultSortings
 
 			for (var i = 0; i < tempArray.Length; i++)
 			{
-				var currentElement = Array[leftIndex + i];
-				currentElement.Value = tempArray[i];
-				SelectedElement = currentElement;
+				//Array[leftIndex + i].Value = tempArray[i];
+				SwapElementsInArray(leftIndex + i, FindElementByNumber(tempArray[i]));
+				SelectedElement = Array[leftIndex + i];
 
 				if (!TimeManagement())
 				{
@@ -272,6 +268,19 @@ namespace Algorithms.Algorithm.DifficultSortings
 					return;
 				}
 			}
+		}
+		private int FindElementByNumber(int number)
+		{
+			int i = 0;
+			foreach (var element in Array)
+			{
+				if (element.Value == number)
+				{
+					return i;
+				}
+				i++;
+			}
+			return -1;
 		}
 
 		// Перемешивает массив

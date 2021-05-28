@@ -14,6 +14,7 @@
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15"/>
             </Grid.ColumnDefinitions>
 
             <!--#region Кнопки проигрывания-->
@@ -29,7 +30,7 @@
                     Background="{DynamicResource AccentColor}"/>
 
             <!--#region Кнопки выбора скорости-->
-            <Grid Grid.Column="3" Margin="0,1,5,5">
+            <Grid Grid.Column="3" Margin="0,1,2,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="50"/>
                     <ColumnDefinition MinWidth="50"/>
@@ -47,6 +48,79 @@
                              IsChecked="{Binding Algorithm.RadioButtonSetFast}"/>
             </Grid>
             <!--#endregion-->
+
+            <!--#region Временные функции -->
+            <ToggleButton x:Name="Togle" Grid.Column="4" FontSize="26"
+                          BorderThickness="2,0,0,0" Content="⋮"
+                          Background="{DynamicResource MainColor}"
+                          BorderBrush="{DynamicResource AccentColor}"
+                          Foreground="{DynamicResource SecondaryTextColor}"
+                          IsChecked="{Binding ShowButtonList}">
+                
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="BG" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter x:Name="FG" TextElement.FontSize="{TemplateBinding FontSize}"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="BG" Property="Background"
+                                        Value="#666"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="BG" Property="Background"
+                                        Value="{DynamicResource EffectColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+            </ToggleButton>
+
+            <Border x:Name="DopButtonPlane" Grid.ColumnSpan="4"
+                    Background="{DynamicResource AccentColor}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Margin="2" BorderThickness="0"
+                            Content="Об авторе" 
+                            Background="{DynamicResource CompColor}"
+                            Foreground="{DynamicResource SecondaryTextColor}"
+                            Command="{Binding AuthorInfo}"/>
+                    <Button Grid.Column="1" Margin="2" BorderThickness="0"
+                            Content="О программе"
+                            Background="{DynamicResource CompColor}"
+                            Foreground="{DynamicResource SecondaryTextColor}"
+                            Command="{Binding ProgramInfo}"/>
+                    <Button Grid.Column="2" Margin="2" BorderThickness="0"
+                            Content="Выход"
+                            Background="{DynamicResource CompColor}"
+                            Foreground="{DynamicResource SecondaryTextColor}"
+                            Command="{Binding ExitProgram}"/>
+                </Grid>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShowButtonList}" 
+                                         Value="false">
+                                <Setter Property="Visibility" 
+                                        Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <!--#endregion-->
+            
         </Grid>
     </Border>
 </UserControl>
